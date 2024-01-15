@@ -4,8 +4,6 @@
   box-sizing: border-box;
 }
 
-
-
 #containerHeroSection {
     width: auto;
     height: 500px;
@@ -14,4 +12,18 @@
 #HeroSection {
   width: 100%;
   height: 100%;
+}
+
+#containerButtonsPortada {
+  position: relative;
+  bottom: 120px;
+  display: flex;
+  justify-content: center;
+  gap: 20%;
+  padding: 0 10px;
+}
+
+#containerButtonsPortada > Button {
+  width: 200px;
+  height: 50px;
 }
