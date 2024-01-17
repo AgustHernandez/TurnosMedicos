@@ -1,10 +1,10 @@
 import React from 'react';
-import '../App.css'
+import '../../App.css'
 import { Typography, Container, Card, CardActionArea, CardMedia, CardContent } from '@mui/material';
-import DiagxImagen from '../assets/estudiosImagenes.png'
-import Consultorio from '../assets/consultorio.png'
-import Laboratorio from '../assets/laboratorio.png'
-import Calendario from '../assets/calendario.png'
+import DiagxImagen from '../../assets/estudiosImagenes.png'
+import Consultorio from '../../assets/consultorio.png'
+import Laboratorio from '../../assets/laboratorio.png'
+import Calendario from '../../assets/calendario.png'
 import Grid from '@mui/material/Unstable_Grid2';
 
 
@@ -29,8 +29,8 @@ function ComponenteMain() {
                     Aliquam autem dolorem perferendis alias repellendus maiores, perspiciatis odit dolorum a voluptates, impedit expedita repudiandae, exercitationem qui soluta rerum. At veritatis corporis temporibus suscipit atque tempore itaque corrupti praesentium nesciunt!
                 </Typography>
             </Container>
-            <Grid container spacing={1} sx={{marginTop: 10, marginBottom: 10, justifyContent:"center"}}>
-                <Grid container item spacing={1} xs={2} sx={{justifyContent:"center"}}>
+            <Grid container columns={{ xs: 4, sm: 4, md: 4, lg: 10 }} sx={{marginTop: 10, marginBottom: 10, justifyContent:"center", gap: 5}}>
+                <Grid container item xs={2} sx={{justifyContent:"center"}}>
                     <Card sx={{ maxWidth: 280}} >
                         <CardActionArea>
                             <CardMedia
@@ -56,7 +56,7 @@ function ComponenteMain() {
                         </CardActionArea>
                     </Card>
                 </Grid>
-                <Grid container item spacing={1} xs={2} sx={{justifyContent:"center"}}>
+                <Grid container item xs={2} sx={{justifyContent:"center"}}>
                     <Card sx={{ maxWidth: 280}} >
                         <CardActionArea>
                             <CardMedia
@@ -82,7 +82,7 @@ function ComponenteMain() {
                         </CardActionArea>
                     </Card>
                 </Grid>
-                <Grid container item spacing={1} xs={2} sx={{justifyContent:"center"}}>
+                <Grid container item xs={2} sx={{justifyContent:"center"}}>
                     <Card sx={{ maxWidth: 280}} >
                         <CardActionArea>
                             <CardMedia
@@ -108,7 +108,7 @@ function ComponenteMain() {
                         </CardActionArea>
                     </Card>
                 </Grid>
-                <Grid container item spacing={1} xs={2} sx={{justifyContent:"center"}}>
+                <Grid container item xs={2} sx={{justifyContent:"center"}}>
                     <Card sx={{ maxWidth: 280}} >
                         <CardActionArea>
                             <CardMedia

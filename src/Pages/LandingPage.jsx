@@ -1,7 +1,7 @@
 import React from 'react';
 import '../App.css'
-import Portada from './Portada';
-import ComponenteMain from './ComponenteMain';
+import Portada from './Componentes/Portada';
+import ComponenteMain from './Componentes/ComponenteMain';
 
 
 function LandingPage() {

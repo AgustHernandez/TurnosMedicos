@@ -1,6 +1,6 @@
 import React from 'react';
-import HeroSection from '../assets/portada.jpg'
-import '../App.css'
+import HeroSection from '../../assets/portada.jpg';
+import '../../App.css';
 import { Button, Container } from '@mui/material';
 
 
