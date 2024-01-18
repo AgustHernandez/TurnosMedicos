@@ -17,7 +17,7 @@ function BusquedaEspecialista() {
 
 
     return(
-        <Container maxWidth="lg" sx={{marginTop: 5}}>
+        <Container maxWidth="lg" sx={{marginTop: 0}}>
             <Container>
                 <Autocomplete
                 value={value}
