@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import '../../App.css';
 import { Autocomplete, Box, Container, TextField } from '@mui/material';
-import Calendar from 'react-calendar';
+import Calendario from './Calendario';
+
 
 
 function BusquedaEspecialista() {
@@ -14,18 +15,9 @@ function BusquedaEspecialista() {
     const [value, setValue] = useState(especialistas[0]);
     const [inputValue, setInputValue] = useState('');
 
-    const disabledDates = [tomorrow, in3Days, in5Days];
-
-    function tileDisabled({ date, view }) {
-  // Disable tiles in month view only
-        if (view === 'month') {
-    // Check if a date React-Calendar wants to check is on the list of disabled dates
-        return disabledDates.find(dDate => isSameDay(dDate, date));
-        }
-    }
 
     return(
-        <Box id="boxBusqueda">
+        <Container maxWidth="lg" sx={{marginTop: 0}}>
             <Container>
                 <Autocomplete
                 value={value}
@@ -43,9 +35,9 @@ function BusquedaEspecialista() {
                 />
             </Container>
             <Container>
-                
+                <Calendario/>
             </Container>
-        </Box>
+        </Container>
     )
 }
 
