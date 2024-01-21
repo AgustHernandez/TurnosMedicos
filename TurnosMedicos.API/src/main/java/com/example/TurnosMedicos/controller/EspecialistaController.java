@@ -22,6 +22,7 @@ public class EspecialistaController {
         this.EspecialistaService = especialistaService;
     }
 
+    @CrossOrigin
     @GetMapping("/especialistas")
     public ResponseEntity<List<EspecialistaDTO>> listarOdontologos() {
         logger.info("GET /especialistas");

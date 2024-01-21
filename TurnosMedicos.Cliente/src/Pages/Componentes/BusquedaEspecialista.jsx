@@ -1,38 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../App.css';
-import { Autocomplete, Box, Container, TextField } from '@mui/material';
+import { Autocomplete, Container, TextField } from '@mui/material';
 import Calendario from './Calendario';
+import { Select } from 'antd';
 
 
+const onChange = (value) => {
+    console.log(`selected ${value}`);
+};
+const onSearch = (value) => {
+    console.log('search:', value);
+};
+
+// Filter `option.label` match the user type `input`
+const filterOption = (input, option) =>
+    (option.nombre + option.apellido).toLowerCase().includes(input.toLowerCase());
 
 function BusquedaEspecialista() {
 
-    const especialistas = [
-        'Emiliano Corsaro',
-        'Agustina Hernandez',
-    ];
+    const url = "http://localhost:8080/api/especialistas";
+    const [data, setData] = useState([]);
 
-    const [value, setValue] = useState(especialistas[0]);
-    const [inputValue, setInputValue] = useState('');
+    const fetchInfo = () => {
+        fetch(url)
+        .then((res) => res.json())
+        .then((s) => setData(s))
+    }
 
+    useEffect(() => {
+        fetchInfo();
+    }, []);
 
+    console.log("Data "+ JSON.stringify(data))
+    
     return(
         <Container maxWidth="lg" sx={{marginTop: 0}}>
             <Container>
-                <Autocomplete
-                value={value}
-                onChange={(event, newValue) => {
-                    setValue(newValue);
-                }}
-                inputValue={inputValue}
-                onInputChange={(event, newInputValue) => {
-                    setInputValue(newInputValue);
-                }}
-                id="idEspecialista"
-                options={especialistas}
-                sx={{ width: 300, borderRadius: 50 }}
-                renderInput={(params) => <TextField {...params} label="Especialista" />}
-                />
+                <Select
+                showSearch
+                placeholder="placeholder"
+                optionFilterProp="children"
+                onChange={onChange}
+                onSearch={onSearch}
+                filterOption={filterOption}
+                options={data}
+            />
             </Container>
             <Container>
                 <Calendario/>
@@ -42,3 +54,16 @@ function BusquedaEspecialista() {
 }
 
 export default BusquedaEspecialista
+
+
+/*Autocomplete
+                inputValue={inputValue}
+                onInputChange={(event, newInputValue) => {
+                    setInputValue(newInputValue);
+                }}
+                id="idEspecialista"
+                options={data}
+                sx={{ width: 300, borderRadius: 50 }}
+                getOptionLabel={(option) => option.apellido + ", "+ option.nombre}
+                renderInput={(params) => <TextField {...params} label="Especialista" />}
+                />*/
