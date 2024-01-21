@@ -20,11 +20,20 @@ function BusquedaEspecialista() {
 
     const url = "http://localhost:8080/api/especialistas";
     const [data, setData] = useState([]);
+    
+    const info = [{value:'45147',label:'Juan Pablo Martinez'},{value:'78415', label:'Agustina Daniela Hernandez'}]
 
+    const onChange = (value) => {
+        console.log(`Selected: ${value}`);
+      };
+
+      const filterOption = (input, option) =>
+  (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
+  
     const fetchInfo = () => {
         fetch(url)
         .then((res) => res.json())
-        .then((s) => setData(s))
+        .then((s) => setData(info))
     }
 
     useEffect(() => {
@@ -40,6 +49,7 @@ function BusquedaEspecialista() {
                 showSearch
                 placeholder="placeholder"
                 optionFilterProp="children"
+                style={{ width: 300, height:50 }}
                 onChange={onChange}
                 onSearch={onSearch}
                 filterOption={filterOption}
