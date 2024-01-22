@@ -25,9 +25,9 @@ function BusquedaEspecialista() {
 
     const onChange = (value) => {
         console.log(`Selected: ${value}`);
-      };
+    };
 
-      const filterOption = (input, option) =>
+    const filterOption = (input, option) =>
   (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
   
     const fetchInfo = () => {
