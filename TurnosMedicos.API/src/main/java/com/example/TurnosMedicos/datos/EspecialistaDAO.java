@@ -29,7 +29,15 @@ public class EspecialistaDAO implements IDao<Especialista> {
 
     @Override
     public Especialista agregar(Especialista elemento) throws ElementAlreadyExistsException {
-        return null;
+        logger.debug("Agregar especialista");
+        if(!EspecialistaRepository.findByLegajo(elemento.getLegajo()).isEmpty())
+        {
+            ElementAlreadyExistsException ex = new ElementAlreadyExistsException("El especialista a agregar ya existe en la base de datos.");
+            logger.error(ex.getMessage(),ex);
+            throw ex;
+        }
+        logger.debug("El especialista no existe en la base de datos. Se procede con la inserción");
+        return EspecialistaRepository.save(elemento);
     }
 
     @Override
