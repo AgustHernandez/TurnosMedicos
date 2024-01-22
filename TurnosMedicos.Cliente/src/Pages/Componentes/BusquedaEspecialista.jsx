@@ -14,7 +14,6 @@ const onSearch = (value) => {
     console.log('search:', value);
 };
 
-// Filter `option.label` match the user type `input`
 const filterOption = (input, option) =>
     (option.nombre + option.apellido).toLowerCase().includes(input.toLowerCase());
 
