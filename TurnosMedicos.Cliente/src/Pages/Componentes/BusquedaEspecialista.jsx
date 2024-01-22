@@ -47,11 +47,8 @@ function BusquedaEspecialista() {
       }
 
   useEffect(() => {
-    if(data.length == 0){
       fetchInfo();
-    }
-
-  }, [data]);
+  }, [legajo]);
 
   return (
     <Container maxWidth="lg" sx={{ marginTop: 0 }}>
