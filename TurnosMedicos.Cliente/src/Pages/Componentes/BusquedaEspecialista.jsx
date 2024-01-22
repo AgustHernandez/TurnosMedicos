@@ -23,8 +23,6 @@ function BusquedaEspecialista() {
     const url = "http://localhost:8080/api/especialistas";
     const [data, setData] = useState([]);
     const [legajo, setLegajo] = useState("")
-    
-    const info = [{value:'45147',label:'Juan Pablo Martinez'},{value:'78415', label:'Agustina Daniela Hernandez'}]
 
     const onChange = (value) => {
         setLegajo(value)
@@ -59,14 +57,22 @@ function BusquedaEspecialista() {
           showSearch
           placeholder="Seleccione un especialista"
           optionFilterProp="children"
+          onChange={onChange}
           style={{ width: 300, height: 50 }}
           filterOption={filterOption}
           options={data}
         />
       </Container>
-      <Container>
-        <Calendario />
-      </Container>
+      { legajo != "" &&
+        <Grid container columns={{ xs: 4, sm: 4, md: 4, lg: 10 }} sx={{marginTop: 10, marginBottom: 10, justifyContent:"center", gap: 5}}>
+          <Grid item xs={4} sx={{justifyContent:"center"}}>
+            <Calendario/>
+          </Grid>
+          <Grid item xs={4} sx={{justifyContent:"center"}}>
+            <SelectorHorarios/>
+          </Grid>
+        </Grid>
+      }
     </Container>
   )
 }
