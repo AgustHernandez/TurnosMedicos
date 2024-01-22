@@ -13,6 +13,7 @@ services:
     build:
       context: ./TurnosMedicos.API
       dockerfile: Dockerfile
+    container_name: turnosAPI
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://turnosDB:3306/Turnos
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"

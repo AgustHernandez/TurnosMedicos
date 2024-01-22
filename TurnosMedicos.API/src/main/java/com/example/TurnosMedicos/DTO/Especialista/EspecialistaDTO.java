@@ -1,5 +1,7 @@
 package com.example.TurnosMedicos.DTO.Especialista;
 
+import com.example.TurnosMedicos.DTO.Especialidad.EspecialidadDTO;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.SequenceGenerator;
@@ -9,16 +11,18 @@ public class EspecialistaDTO {
     private String legajo;
     private String apellido;
     private String nombre;
+    private EspecialidadDTO especialidad;
     public void setId(Long id) {
         Id = id;
     }
 
     public EspecialistaDTO(){}
-    public EspecialistaDTO(Long id, String apellido, String nombre, String legajo) {
+    public EspecialistaDTO(Long id, String apellido, String nombre, String legajo, EspecialidadDTO especialidadDTO) {
         Id = id;
         this.apellido = apellido;
         this.nombre = nombre;
         this.legajo = legajo;
+        this.especialidad = especialidadDTO;
     }
 
     public String getLegajo() {
@@ -47,5 +51,11 @@ public class EspecialistaDTO {
         this.nombre = nombre;
     }
 
+    public EspecialidadDTO getEspecialidad() {
+        return especialidad;
+    }
 
+    public void setEspecialidad(EspecialidadDTO especialidad) {
+        this.especialidad = especialidad;
+    }
 }
