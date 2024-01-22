@@ -47,7 +47,10 @@ function BusquedaEspecialista() {
       }
 
   useEffect(() => {
+    if(data.length == 0){
       fetchInfo();
+    }
+
   }, [data]);
 
   return (
