@@ -9,10 +9,10 @@ const onPanelChange = (value, mode) => {
 function Calendario() {
     const { token } = theme.useToken();
     const wrapperStyle = {
-        width: 300,
+        width: 381,
         border: `1px solid ${token.colorBorderSecondary}`,
         borderRadius: token.borderRadiusLG,
-        marginTop: 50,
+        
     };
     return (
         <div style={wrapperStyle}>
