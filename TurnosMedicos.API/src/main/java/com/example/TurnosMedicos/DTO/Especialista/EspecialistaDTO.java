@@ -10,14 +10,25 @@ public class EspecialistaDTO {
     }
 
     public EspecialistaDTO(){}
-    public EspecialistaDTO(Long id, String apellido, String nombre) {
+    public EspecialistaDTO(Long id, String apellido, String nombre, String legajo) {
         Id = id;
         this.apellido = apellido;
         this.nombre = nombre;
+        this.legajo = legajo;
     }
 
     private Long Id;
     private String apellido;
+
+    public String getLegajo() {
+        return legajo;
+    }
+
+    public void setLegajo(String legajo) {
+        this.legajo = legajo;
+    }
+
+    private String legajo;
 
     public String getApellido() {
         return apellido;
