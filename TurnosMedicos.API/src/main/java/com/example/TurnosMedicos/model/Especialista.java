@@ -5,29 +5,28 @@ import javax.persistence.*;
 @Entity
 @Table
 public class Especialista {
-    public Especialista() {
-    }
 
-    public Especialista(String apellido, String nombre) {
-        this.apellido = apellido;
-        this.nombre = nombre;
+    @javax.persistence.Id
+    @SequenceGenerator(name="especialista_sequence", sequenceName = "especialista_sequence")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "especialista_sequence")
+    private Long Id;
+    private String legajo;
+    private String apellido;
+    private String nombre;
+    public Especialista() {
     }
 
     public void setId(Long id) {
         Id = id;
     }
 
-    public Especialista(Long id, String apellido, String nombre) {
-        Id = id;
-        this.apellido = apellido;
-        this.nombre = nombre;
+    public String getLegajo() {
+        return legajo;
     }
 
-    @javax.persistence.Id
-    @SequenceGenerator(name="especialista_sequence", sequenceName = "especialista_sequence")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "especialista_sequence")
-    private Long Id;
-    private String apellido;
+    public void setLegajo(String legajo) {
+        this.legajo = legajo;
+    }
 
     public String getApellido() {
         return apellido;
@@ -45,5 +44,4 @@ public class Especialista {
         this.nombre = nombre;
     }
 
-    private String nombre;
 }
