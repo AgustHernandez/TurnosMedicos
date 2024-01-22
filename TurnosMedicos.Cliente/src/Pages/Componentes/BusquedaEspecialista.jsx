@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import '../../App.css';
 import { Container, Grid } from '@mui/material';
 import Calendario from './Calendario';
-import { Select } from 'antd';
+import { Button, Select } from 'antd';
 import SelectorHorarios from './selectorHorarios';
+import { CheckOutlined } from '@ant-design/icons';
 
 const style = {
     background: '#0092ff',
@@ -68,11 +69,16 @@ function BusquedaEspecialista() {
       </Container>
       { legajo != "" &&
         <Grid container columns={{ xs: 4, sm: 4, md: 4, lg: 10 }} sx={{marginTop: 10, marginBottom: 10, justifyContent:"center", gap: 5}}>
-          <Grid item xs={4} sx={{justifyContent:"center"}}>
+          <Grid container item xs={4} justifyContent="center">
             <Calendario/>
           </Grid>
-          <Grid item xs={4} sx={{justifyContent:"center"}}>
+          <Grid item xs={4} justifyContent="center" alignItems="center">
             <SelectorHorarios/>
+          </Grid>
+          <Grid container item xs={8} justifyContent="flex-end" alignItems="center">
+            <Button shape="round" icon={<CheckOutlined />} value="large">
+              Confirmar
+            </Button> 
           </Grid>
         </Grid>
       }

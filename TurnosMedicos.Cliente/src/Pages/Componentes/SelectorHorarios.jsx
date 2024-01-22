@@ -14,9 +14,9 @@ const columns = [
     {
         title: 'Action',
         key: 'action',
-        render: (_, record) => (
+        render: () => (
             <Space size="middle">
-                <a>Elegir {record.name}</a>
+                <a>Elegir</a>
             </Space>
         ),
         responsive: ['lg'],
