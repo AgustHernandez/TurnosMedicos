@@ -5,17 +5,24 @@ import { Calendar, theme } from 'antd';
 const onPanelChange = (value, mode) => {
     console.log(value.format('YYYY-MM-DD'), mode);
 };
+
 function Calendario() {
     const { token } = theme.useToken();
-        const wrapperStyle = {
-            width: 1000,
-            border: `1px solid ${token.colorBorderSecondary}`,
-            borderRadius: token.borderRadiusLG,
-            marginTop: 30 
-        };
+    const wrapperStyle = {
+        width: 381,
+        border: `1px solid ${token.colorBorderSecondary}`,
+        borderRadius: token.borderRadiusLG,
+        
+    };
     return (
         <div style={wrapperStyle}>
-            <Calendar fullscreen={true} onPanelChange={onPanelChange} />
+            <Calendar
+                onSelect={(date, { source }) => {
+                    if (source === 'date') {
+                        console.log('Panel Select:', JSON.stringify(date.$d));
+                    }
+                }}
+                fullscreen={false} onPanelChange={onPanelChange} />
         </div>
         );
 }

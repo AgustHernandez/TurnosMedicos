@@ -33,3 +33,8 @@
   width: 100%;
   height: 100px;
 }
+
+
+.gutter-box {
+  padding: 10px 0;
+}
