@@ -15,7 +15,6 @@ const onSearch = (value) => {
     console.log('search:', value);
 };
 
-// Filter `option.label` match the user type `input`
 const filterOption = (input, option) =>
     (option.nombre + option.apellido).toLowerCase().includes(input.toLowerCase());
 
@@ -48,11 +47,8 @@ function BusquedaEspecialista() {
       }
 
   useEffect(() => {
-    if(data.length == 0){
       fetchInfo();
-    }
-
-  }, [data]);
+  }, [legajo]);
 
   return (
     <Container maxWidth="lg" sx={{ marginTop: 0 }}>
