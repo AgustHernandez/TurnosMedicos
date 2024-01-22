@@ -5,6 +5,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.SequenceGenerator;
 
 public class EspecialistaDTO {
+    private Long Id;
+    private String legajo;
+    private String apellido;
+    private String nombre;
     public void setId(Long id) {
         Id = id;
     }
@@ -17,9 +21,6 @@ public class EspecialistaDTO {
         this.legajo = legajo;
     }
 
-    private Long Id;
-    private String apellido;
-
     public String getLegajo() {
         return legajo;
     }
@@ -28,7 +29,7 @@ public class EspecialistaDTO {
         this.legajo = legajo;
     }
 
-    private String legajo;
+
 
     public String getApellido() {
         return apellido;
@@ -46,5 +47,5 @@ public class EspecialistaDTO {
         this.nombre = nombre;
     }
 
-    private String nombre;
+
 }
