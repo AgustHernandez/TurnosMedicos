@@ -3,19 +3,20 @@ version: '3'
 services:
   mysql:
     image: mysql:latest
-    environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-      MYSQL_DATABASE: Turnos
-
+    container_name: turnosDB
     ports:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
- 
+
   api:
     build:
       context: ./TurnosMedicos.API
       dockerfile: Dockerfile
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://turnosDB:3306/Turnos
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: Turnos
     ports:
       - "8080:8080"
     depends_on:

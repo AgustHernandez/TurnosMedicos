@@ -37,42 +37,38 @@ function BusquedaEspecialista() {
 
     const fetchInfo = () => {
         fetch(url)
-        .then((res) => res.json())
-        .then((s) => setData(info))
-    }
+          .then((res) => res.json())
+          .then((s) => {
+            setData(s.map(function (elemento) {
+              return {
+                value: elemento.legajo,
+                label: elemento.apellido + ', ' + elemento.nombre
+              };
+            }))
+          })
+      }
 
-    useEffect(() => {
-        fetchInfo();
-    }, []);
+  useEffect(() => {
+      fetchInfo();
+  }, [data]);
 
-    console.log("Data "+ JSON.stringify(data))
-    
-    return(
-        <Container maxWidth="lg" sx={{marginTop: 0}}>
-            <Container>
-                <Select
-                    showSearch
-                    placeholder="placeholder"
-                    optionFilterProp="children"
-                    style={{ width: 300, height:50 }}
-                    onChange={onChange}
-                    onSearch={onSearch}
-                    filterOption={filterOption}
-                    options={data}
-                />
-            </Container>
-                {legajo != "" &&
-                <Grid container columns={{ xs: 4, sm: 8, md: 12, lg: 24 }} sx={{marginTop: 10, marginBottom: 25.8, justifyContent:"center", alignItems: "center", gap: 10}}>
-                    <Grid item xs={4} sm={6} md={8} sx={{justifyContent:"center"}}>
-                        <Calendario/>
-                    </Grid>
-                    <Grid item xs={4} sm={6} md={8} sx={{justifyContent:"center"}}>
-                        <SelectorHorarios/>
-                    </Grid>
-                </Grid>
-                }
-        </Container>
-    )
+  return (
+    <Container maxWidth="lg" sx={{ marginTop: 0 }}>
+      <Container>
+        <Select
+          showSearch
+          placeholder="Seleccione un especialista"
+          optionFilterProp="children"
+          style={{ width: 300, height: 50 }}
+          filterOption={filterOption}
+          options={data}
+        />
+      </Container>
+      <Container>
+        <Calendario />
+      </Container>
+    </Container>
+  )
 }
 
 export default BusquedaEspecialista

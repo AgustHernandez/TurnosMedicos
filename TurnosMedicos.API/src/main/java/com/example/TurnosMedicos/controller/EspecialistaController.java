@@ -1,6 +1,9 @@
 package com.example.TurnosMedicos.controller;
 
 import com.example.TurnosMedicos.DTO.Especialista.EspecialistaDTO;
+import com.example.TurnosMedicos.exceptions.ElementAlreadyExistsException;
+import com.example.TurnosMedicos.model.Especialista;
+import com.example.TurnosMedicos.model.EspecialistaQuery;
 import com.example.TurnosMedicos.services.interfaces.IEspecialistaServ;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +30,14 @@ public class EspecialistaController {
     public ResponseEntity<List<EspecialistaDTO>> listarOdontologos() {
         logger.info("GET /especialistas");
         List<EspecialistaDTO> result = EspecialistaService.listarEspecialistas();
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @CrossOrigin
+    @PostMapping("/especialistas")
+    public ResponseEntity<EspecialistaDTO> agregardontologo(@RequestBody EspecialistaQuery especialista) throws ElementAlreadyExistsException {
+        logger.info("POST /especialistas");
+        EspecialistaDTO result = EspecialistaService.agregarEspecialista(especialista);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }
