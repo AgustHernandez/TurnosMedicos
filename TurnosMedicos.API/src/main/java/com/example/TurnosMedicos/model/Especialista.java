@@ -13,7 +13,17 @@ public class Especialista {
     private String legajo;
     private String apellido;
     private String nombre;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name="especialidadId", referencedColumnName = "Id")
+    private Especialidad especialidad;
     public Especialista() {
+    }
+
+    public Especialista(String legajo, String apellido, String nombre, Especialidad especialidad) {
+        this.legajo = legajo;
+        this.apellido = apellido;
+        this.nombre = nombre;
+        this.especialidad = especialidad;
     }
 
     public void setId(Long id) {
@@ -44,4 +54,11 @@ public class Especialista {
         this.nombre = nombre;
     }
 
+    public Especialidad getEspecialidad() {
+        return especialidad;
+    }
+
+    public void setEspecialidad(Especialidad especialidad) {
+        this.especialidad = especialidad;
+    }
 }

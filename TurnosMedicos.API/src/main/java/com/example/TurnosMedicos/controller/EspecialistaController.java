@@ -27,7 +27,7 @@ public class EspecialistaController {
 
     @CrossOrigin
     @GetMapping("/especialistas")
-    public ResponseEntity<List<EspecialistaDTO>> listarOdontologos() {
+    public ResponseEntity<List<EspecialistaDTO>> listarEspecialistas() {
         logger.info("GET /especialistas");
         List<EspecialistaDTO> result = EspecialistaService.listarEspecialistas();
         return new ResponseEntity<>(result, HttpStatus.OK);
@@ -35,7 +35,7 @@ public class EspecialistaController {
 
     @CrossOrigin
     @PostMapping("/especialistas")
-    public ResponseEntity<EspecialistaDTO> agregardontologo(@RequestBody EspecialistaQuery especialista) throws ElementAlreadyExistsException {
+    public ResponseEntity<EspecialistaDTO> agregarEspecialista(@RequestBody EspecialistaQuery especialista) throws ElementAlreadyExistsException {
         logger.info("POST /especialistas");
         EspecialistaDTO result = EspecialistaService.agregarEspecialista(especialista);
         return new ResponseEntity<>(result, HttpStatus.OK);
