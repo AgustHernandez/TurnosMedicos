@@ -8,6 +8,7 @@ import Turnos from './Pages/Turnos';
 import LogIn from './Pages/LogIn';
 import { Layout } from 'antd';
 import { Content, Header, Footer } from 'antd/es/layout/layout';
+import RegistroUsuario from './Pages/Componentes/RegistroUsuario';
 
 function App() {
   
@@ -24,6 +25,7 @@ function App() {
             <Route path='/' element={<LandingPage/>}/>
             <Route path='/reservar' element={<Turnos/>}/>
             <Route path='/inicioSesion' element={<LogIn/>}/>
+            <Route path='/registro' element={<RegistroUsuario/>}/>
           </Routes>
         </Content>
         <Footer style={{ textAlign: 'center'}}>
