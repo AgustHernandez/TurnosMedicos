@@ -15,12 +15,12 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { useState } from 'react';
 
 
-const pages = ['Inicio', 'Reservar'];
 const settings = ['Mi perfil', 'Mis Turnos', 'Cerrar Sesión'];
 
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const [logIn, setLogIn] = useState(false)
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -155,10 +155,15 @@ function NavBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+              {logIn == false ?
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Button textAlign="center" href="/inicioSesion">Iniciar Sesión</Button>
                 </MenuItem>
+              :
+                settings.map((setting) => (
+                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">{setting}</Typography>
+                  </MenuItem>
               ))}
             </Menu>
           </Box>
