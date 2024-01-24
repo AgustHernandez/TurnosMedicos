@@ -1,11 +1,13 @@
 package com.example.TurnosMedicos.DTO.Especialista;
 
 import com.example.TurnosMedicos.DTO.Especialidad.EspecialidadDTO;
+import com.example.TurnosMedicos.DTO.Turno.TurnoDTO;
+import com.example.TurnosMedicos.model.Turno;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.SequenceGenerator;
+import java.util.*;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class EspecialistaDTO {
     private Long Id;
     private String legajo;
@@ -32,8 +34,6 @@ public class EspecialistaDTO {
     public void setLegajo(String legajo) {
         this.legajo = legajo;
     }
-
-
 
     public String getApellido() {
         return apellido;
