@@ -2,6 +2,7 @@ package com.example.TurnosMedicos.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.*;
@@ -25,7 +26,7 @@ public class Especialista {
     private Set<Turno> turnos;
 
     public Especialista() {
-        crearAgenda(LocalDateTime.now(), LocalDateTime.now().plusDays(1));
+        crearAgenda(LocalDateTime.now(), LocalDateTime.now().plusDays(90), 9 , 12);
     }
 
     public Especialista(String legajo, String apellido, String nombre, Especialidad especialidad) {
@@ -33,10 +34,10 @@ public class Especialista {
         this.apellido = apellido;
         this.nombre = nombre;
         this.especialidad = especialidad;
-        crearAgenda(LocalDateTime.now(), LocalDateTime.now().plusDays(1));
+        crearAgenda(LocalDateTime.now(), LocalDateTime.now().plusDays(90), 9, 12);
     }
 
-    private void crearAgenda(LocalDateTime fechaDesde, LocalDateTime fechaHasta) {
+    private void crearAgenda(LocalDateTime fechaDesde, LocalDateTime fechaHasta, int horaInicio, int horaFin) {
         this.turnos = new HashSet<Turno>();
         ZoneId zoneId = ZoneId.systemDefault();
 
@@ -44,12 +45,19 @@ public class Especialista {
         ZonedDateTime dateTimeHasta = fechaHasta.atZone(zoneId);
 
         List<Date> fechas = new ArrayList<>();
-        ZonedDateTime dateTimeActual = dateTimeDesde;
+        ZonedDateTime dateTimeActual = dateTimeDesde.with(LocalTime.of(0, 0, 0));
+
         while (!dateTimeActual.isAfter(dateTimeHasta)) {
-            ZonedDateTime roundedDateTime = dateTimeActual.withMinute(0).withSecond(0).withNano(0).plusHours(4);
-            Date date = Date.from(roundedDateTime.toInstant());
-            fechas.add(date);
-            dateTimeActual = dateTimeActual.plusHours(1);
+            int currentHour = dateTimeActual.getHour();
+
+            // Verifica si la hora actual está dentro del rango configurado
+            if (currentHour >= horaInicio && currentHour < horaFin) {
+                ZonedDateTime roundedDateTime = dateTimeActual.withSecond(0).withNano(0);
+                Date date = Date.from(roundedDateTime.toInstant());
+                fechas.add(date);
+            }
+
+            dateTimeActual = dateTimeActual.plusMinutes(30);
         }
 
         for (Date fecha : fechas) {
@@ -57,6 +65,7 @@ public class Especialista {
             turnos.add(turno);
         }
     }
+
 
     public Set<Turno> getTurnos() {
         return turnos;
