@@ -10,13 +10,13 @@ import java.util.Date;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TurnoDTO {
     private String key;
-    private LocalTime horario;
+    private String horario;
     private String codigoTurno;
 
     public TurnoDTO() {
     }
 
-    public TurnoDTO(String key, LocalTime horario, String codigoTurno) {
+    public TurnoDTO(String key, String horario, String codigoTurno) {
         this.key = key;
         this.horario = horario;
         this.codigoTurno = codigoTurno;
@@ -30,11 +30,11 @@ public class TurnoDTO {
         this.key = key;
     }
 
-    public LocalTime getHorario() {
+    public String getHorario() {
         return horario;
     }
 
-    public void setHorario(LocalTime horario) {
+    public void setHorario(String horario) {
         this.horario = horario;
     }
 

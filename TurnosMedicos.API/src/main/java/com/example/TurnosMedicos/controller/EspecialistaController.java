@@ -19,7 +19,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/especialistas")
+@RequestMapping("/api")
 public class EspecialistaController {
     private static final Logger logger = Logger.getLogger(EspecialistaController.class);
     private final IEspecialistaServ EspecialistaService;
@@ -30,7 +30,7 @@ public class EspecialistaController {
     }
 
     @CrossOrigin
-    @GetMapping("/")
+    @GetMapping("/especialistas")
     public ResponseEntity<List<EspecialistaDTO>> listarEspecialistas() {
         logger.info("GET /especialistas");
         List<EspecialistaDTO> result = EspecialistaService.listarEspecialistas();
@@ -38,14 +38,14 @@ public class EspecialistaController {
     }
 
     @CrossOrigin
-    @PostMapping("/")
+    @PostMapping("/especialistas")
     public ResponseEntity<EspecialistaDTO> agregarEspecialista(@RequestBody EspecialistaQuery especialista) throws ElementAlreadyExistsException {
         logger.info("POST /especialistas");
         EspecialistaDTO result = EspecialistaService.agregarEspecialista(especialista);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping("/{matricula}/turnos")
+    @GetMapping("/especialistas/{matricula}/turnos")
     public ResponseEntity<List<TurnoDTO>> obtenerTurnosPorMatriculaYFecha(
             @PathVariable String matricula,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate fecha) {

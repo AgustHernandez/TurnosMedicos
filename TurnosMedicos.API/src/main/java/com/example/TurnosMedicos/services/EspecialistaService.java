@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -70,7 +71,9 @@ public class EspecialistaService implements IEspecialistaServ {
                 List<TurnoDTO> turnosEncontradosDTO = new ArrayList<>();
                 for (int i = 0; i < turnosEncontrados.size(); i++) {
                     Turno turno = turnosEncontrados.get(i);
-                    turnosEncontradosDTO.add(new TurnoDTO(String.valueOf(i + 1), turno.getFecha().toInstant().atZone(ZoneId.systemDefault()).toLocalTime(), turno.getId().toString()));
+                    if (turno.getAppUser() == null) {
+                        turnosEncontradosDTO.add(new TurnoDTO(String.valueOf(i + 1), turno.getFecha().toInstant().atZone(ZoneId.systemDefault()).toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")), turno.getId().toString()));
+                    }
                 }
 
                 return turnosEncontradosDTO;
