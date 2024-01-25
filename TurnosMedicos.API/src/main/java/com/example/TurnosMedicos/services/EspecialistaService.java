@@ -15,7 +15,9 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -50,21 +52,32 @@ public class EspecialistaService implements IEspecialistaServ {
     }
 
     @Override
-    public List<TurnoDTO> obtenerTurnosPorMatriculaYFecha(String matricula, LocalDateTime fecha) {
+    public List<TurnoDTO> obtenerTurnosPorMatriculaYFecha(String matricula, LocalDate fecha) {
         Optional<Especialista> especialistaEncontrado = EspecialistaDao.listar().stream()
                 .filter(especialista -> matricula.equals(especialista.getLegajo()))
                 .findFirst();
         if (especialistaEncontrado.isPresent()) {
             Especialista especialista = especialistaEncontrado.get();
-            Optional<List<Turno>> turnosEncontrados = especialista.getTurnos().stream()
-                    .filter(turno -> turno.getFecha().equals(fecha))
-                    .findAny()
-                    .map(Collections::singletonList);
-            if(turnosEncontrados.isPresent()) {
-                return mapper.convertValue(turnosEncontrados.get(), new TypeReference<List<TurnoDTO>>() {
-                });
+            List<Turno> turnosEncontrados = especialista.getTurnos().stream()
+                    .filter(turno -> {
+                        LocalDate turnoFecha = turno.getFecha().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                        return turnoFecha.equals(fecha);
+                    })
+                    .collect(Collectors.toList());
+
+            if (!turnosEncontrados.isEmpty()) {
+                turnosEncontrados.sort(Comparator.comparing(Turno::getFecha));
+                List<TurnoDTO> turnosEncontradosDTO = new ArrayList<>();
+                for (int i = 0; i < turnosEncontrados.size(); i++) {
+                    Turno turno = turnosEncontrados.get(i);
+                    turnosEncontradosDTO.add(new TurnoDTO(String.valueOf(i + 1), turno.getFecha().toInstant().atZone(ZoneId.systemDefault()).toLocalTime(), turno.getId().toString()));
+                }
+
+                return turnosEncontradosDTO;
             }
         }
-        return null;
+        return Collections.emptyList();
     }
+
+
 }

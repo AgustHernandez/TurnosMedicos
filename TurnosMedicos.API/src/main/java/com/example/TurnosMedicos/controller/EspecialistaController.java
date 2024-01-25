@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -47,7 +48,7 @@ public class EspecialistaController {
     @GetMapping("/{matricula}/turnos")
     public ResponseEntity<List<TurnoDTO>> obtenerTurnosPorMatriculaYFecha(
             @PathVariable String matricula,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fecha) {
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate fecha) {
         logger.info("GET /especialistas/{}/turnos?fecha={}");
         List<TurnoDTO> result = EspecialistaService.obtenerTurnosPorMatriculaYFecha(matricula, fecha);
         return new ResponseEntity<>(result, HttpStatus.OK);
