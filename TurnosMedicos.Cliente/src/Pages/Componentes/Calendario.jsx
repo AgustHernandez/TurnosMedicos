@@ -2,14 +2,13 @@ import React from 'react';
 import { Calendar, theme } from 'antd';
 import { useGlobalContext } from './utils/global.context';
 
-/*const onPanelChange = (value, mode, onFechaChange) => {
+const onPanelChange = (value, mode, onFechaChange) => {
   const formattedDate = value.format('YYYY-MM-DD');
   console.log(formattedDate, mode);
   onFechaChange(formattedDate);
-};*/
+};
 
-function Calendario() {
-  const {changeFecha} = useGlobalContext()
+function Calendario({ onFechaChange }) {
 
   const { token } = theme.useToken();
   const wrapperStyle = {
@@ -23,10 +22,11 @@ function Calendario() {
       <Calendar
         onSelect={(date, { source }) => {
           if (source === 'date') {
-            changeFecha(date.$d);
+            console.log('Panel Select:', JSON.stringify(date.$d));
           }
         }}
         fullscreen={false}
+        onPanelChange={(value, mode) => onPanelChange(value, mode, onFechaChange)}
       />
     </div>
   );

@@ -4,13 +4,13 @@ const ContextGlobal = createContext([]);
 
 export const useGlobalContext = () => useContext(ContextGlobal)
 
-const getFechaFromStorage = () => {
+/*const getFechaFromStorage = () => {
     const localData = localStorage.getItem("fecha");
     return localData ? JSON.parse(localData) : [];
     };
 
 const setFechaInStorage = (fecha) =>
-    localStorage.setItem("fecha", JSON.stringify(fecha));
+    localStorage.setItem("fecha", JSON.stringify(fecha));*/
 
 function ContextProvider({ children }) {  
 
@@ -20,13 +20,13 @@ function ContextProvider({ children }) {
         .then((s) => console.log(s));
     }
 
-    const [fechaSeleccionada, setFechaSeleccionada] = useState(getFechaFromStorage());
+    /*const [fechaSeleccionada, setFechaSeleccionada] = useState(getFechaFromStorage());
 
     useEffect(() => {
         setFechaInStorage(fecha);
         }, [fecha]);
 
-    const changeFecha = (fecha) => setFechaSeleccionada(fecha);
+    const changeFecha = (fecha) => setFechaSeleccionada(fecha);*/
 
     const [data, setData] = useState([]);
 
@@ -41,10 +41,8 @@ function ContextProvider({ children }) {
         fetchInfo();
     }, [legajo, fechaSeleccionada]);
 
-
-
     return (
-        <ContextGlobal.Provider value={{guardarTurno, data, legajo, fechaSeleccionada, changeFecha}}>
+        <ContextGlobal.Provider value={{guardarTurno, data, legajo, fechaSeleccionada}}>
             {children}
         </ContextGlobal.Provider>
     );

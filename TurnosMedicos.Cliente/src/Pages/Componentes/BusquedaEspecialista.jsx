@@ -22,15 +22,13 @@ const filterOption = (input, option) =>
 function BusquedaEspecialista() {
 
     const url = "http://localhost:8080/api/especialistas";
-    const {legajo, fechaSeleccionada} = useGlobalContext()
     const [data, setData] = useState([]);
-    //const [legajo, setLegajo] = useState("74157");
-    //const [fechaSeleccionada, setFechaSeleccionada] = useState("2024-01-29T21:43:45.0Z");
+    const [legajo, setLegajo] = useState("74157");
+    const [fechaSeleccionada, setFechaSeleccionada] = useState("2024-01-29T21:43:45.0Z");
 
-    /*const handleFechaChange = nuevaFecha => {
+    const handleFechaChange = nuevaFecha => {
       setFechaSeleccionada(nuevaFecha);
-    }*/
-
+    }
 
     const filterOption = (input, option) =>
         (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
@@ -52,7 +50,6 @@ function BusquedaEspecialista() {
       fetchInfo();
   }, [legajo]);
 
-  console.log(fechaSeleccionada)
 
   return (
     <Container maxWidth="lg" sx={{ marginTop: 0 }}>
@@ -61,6 +58,7 @@ function BusquedaEspecialista() {
           showSearch
           placeholder="Seleccione un especialista"
           optionFilterProp="children"
+          onChange={onChange}
           style={{ width: 300, height: 50 }}
           filterOption={filterOption}
           options={data}
@@ -69,7 +67,7 @@ function BusquedaEspecialista() {
       { legajo != "" &&
         <Grid container columns={{ xs: 4, sm: 4, md: 4, lg: 10 }} sx={{marginTop: 10, marginBottom: 10, justifyContent:"center", gap: 5}}>
           <Grid container item xs={4} justifyContent="center">
-            <Calendario />
+            <Calendario onFechaChange={handleFechaChange}/>
           </Grid>
           <Grid item xs={4} justifyContent="center" alignItems="center">
           <SelectorHorarios fechaSeleccionada={fechaSeleccionada} legajo={legajo} />
