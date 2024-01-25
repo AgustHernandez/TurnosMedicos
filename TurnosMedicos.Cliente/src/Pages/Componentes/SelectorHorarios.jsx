@@ -21,9 +21,6 @@ const columns = [
   },
 ];
 
-const guardarTurno = (codTurno) => {
-    console.log(codTurno);
-  }
 
 function SelectorHorarios({ legajo, fechaSeleccionada }) {
   const [data, setData] = useState([]);

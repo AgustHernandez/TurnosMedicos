@@ -2,7 +2,9 @@ package com.example.TurnosMedicos.controller;
 
 import com.example.TurnosMedicos.DTO.Especialista.EspecialistaDTO;
 import com.example.TurnosMedicos.DTO.Turno.TurnoDTO;
+import com.example.TurnosMedicos.exceptions.DuplicatedElementException;
 import com.example.TurnosMedicos.exceptions.ElementAlreadyExistsException;
+import com.example.TurnosMedicos.exceptions.ResourceNotFoundException;
 import com.example.TurnosMedicos.model.Especialista;
 import com.example.TurnosMedicos.model.EspecialistaQuery;
 import com.example.TurnosMedicos.services.interfaces.IEspecialistaServ;
@@ -44,13 +46,22 @@ public class EspecialistaController {
         EspecialistaDTO result = EspecialistaService.agregarEspecialista(especialista);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
-
+    @CrossOrigin
     @GetMapping("/especialistas/{matricula}/turnos")
     public ResponseEntity<List<TurnoDTO>> obtenerTurnosPorMatriculaYFecha(
             @PathVariable String matricula,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate fecha) {
         logger.info("GET /especialistas/{}/turnos?fecha={}");
         List<TurnoDTO> result = EspecialistaService.obtenerTurnosPorMatriculaYFecha(matricula, fecha);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @CrossOrigin
+    @PostMapping("/turnos/{codTurno}")
+    public ResponseEntity<Boolean> guardarTurnoPorCodigo(
+            @PathVariable String codTurno) throws DuplicatedElementException, ResourceNotFoundException {
+        logger.info("GET /turnos/{}");
+        Boolean result = EspecialistaService.guardarTurnoPorCodigo(codTurno);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }
