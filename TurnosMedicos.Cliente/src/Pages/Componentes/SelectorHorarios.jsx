@@ -21,6 +21,11 @@ const columns = [
   },
 ];
 
+const guardarTurno = (codTurno) => {
+    fetch(`http://localhost:8080/api/turnos/${codTurno}`, {method:'POST'})
+    .then((res) => res.json())
+    .then((s) => console.log(s));
+  }
 
 function SelectorHorarios({ legajo, fechaSeleccionada }) {
   const [data, setData] = useState([]);

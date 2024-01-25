@@ -33,10 +33,6 @@ function BusquedaEspecialista() {
         setLegajo(value)
     };
 
-    const guardarTurno = (codTurno) => {
-      console.log(codTurno);
-    }
-
 
     const filterOption = (input, option) =>
         (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
