@@ -1,45 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useGlobalContext } from './utils/global.context';
 import { Space, Table } from 'antd';
 
-const columns = [
-  {
-    title: 'Horario',
-    dataIndex: 'horario',
-    key: 'horario',
-    render: (text) => <a>{text}</a>,
-    responsive: ['lg'],
-  },
-  {
-    title: 'Action',
-    key: 'action',
-    render: (text, record) => (
-        <Space size="middle">
-          <a onClick={() => guardarTurno(record.codigoTurno)}>Elegir</a>
-        </Space>
-      ),
-    responsive: ['lg'],
-  },
-];
+const SelectorHorarios = () => {
+  const {data, guardarTurno} = useGlobalContext()
 
-const guardarTurno = (codTurno) => {
-    fetch(`http://localhost:8080/api/turnos/${codTurno}`, {method:'POST'})
-    .then((res) => res.json())
-    .then((s) => console.log(s));
-  }
+  const columns = [
+    {
+      title: 'Horario',
+      dataIndex: 'horario',
+      key: 'horario',
+      render: (text) => <a>{text}</a>,
+      responsive: ['lg'],
+    },
+    {
+      title: 'Action',
+      key: 'action',
+      render: (text, record) => (
+          <Space size="middle">
+            <a onClick={() => guardarTurno(record.codTurno)}>Elegir</a>
+          </Space>
+        ),
+      responsive: ['lg'],
+    },
+  ];
 
-function SelectorHorarios({ legajo, fechaSeleccionada }) {
-  const [data, setData] = useState([]);
-
-  const fetchInfo = () => {
-    console.log(`Obteniendo turnos para ${legajo}`)
-    fetch(`http://localhost:8080/api/especialistas/${legajo}/turnos?fecha=${fechaSeleccionada}`)
-      .then((res) => res.json())
-      .then((s) => setData(s));
-  };
-
-  useEffect(() => {
-    fetchInfo();
-  }, [legajo, fechaSeleccionada]);
 
   return (
     <Table
