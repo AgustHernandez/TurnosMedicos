@@ -30,6 +30,11 @@ function BusquedaEspecialista() {
       setFechaSeleccionada(nuevaFecha);
     }
 
+    const onChange = (value) => {
+      setLegajo(value)
+    };
+
+
     const filterOption = (input, option) =>
         (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
 

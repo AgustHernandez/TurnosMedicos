@@ -16,13 +16,14 @@ function Calendario({ onFechaChange }) {
     border: `1px solid ${token.colorBorderSecondary}`,
     borderRadius: token.borderRadiusLG,
   };
-
+  
   return (
     <div style={wrapperStyle}>
       <Calendar
         onSelect={(date, { source }) => {
           if (source === 'date') {
-            console.log('Panel Select:', JSON.stringify(date.$d));
+            localStorage.setItem("fechaSeleccionada", JSON.stringify(date.$d))
+            console.log(localStorage.getItem("fechaSeleccionada"));
           }
         }}
         fullscreen={false}
