@@ -23,5 +23,15 @@ services:
     depends_on:
       - mysql
 
+  vite_docker:
+    build:
+      context: ./TurnosMedicos.Cliente
+      dockerfile: Dockerfile
+    container_name: turnosAPP
+    ports:
+      - "5173:5173"
+    depends_on:
+      - api
+
 volumes:
   mysql_data:
