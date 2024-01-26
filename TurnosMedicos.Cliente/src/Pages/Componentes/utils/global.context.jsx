@@ -42,6 +42,7 @@ function ContextProvider({ children }) {
     }, [legajo, fechaSeleccionada]);
 
     const [codTurno, setCodTurno] = useState("")
+    const [enviado, setEnviado] = useState(false)
 
     const guardarTurno = (codTurno) => {
       fetch(`http://localhost:8080/api/especialistas/${legajo}/turnos/${codTurno}`, getRequestOptions('POST'))
@@ -56,7 +57,7 @@ function ContextProvider({ children }) {
           }
         }
       })
-      .then((s) => console.log(s))
+      .then((s) => setEnviado(s))
       .catch((error) => {
         console.error('Error en la solicitud:', error);
       });
@@ -83,26 +84,8 @@ function ContextProvider({ children }) {
         localStorage.setItem('jwtToken', '')
     }
 
-    const fetchInfoLegajo = () => {
-        /*const url = "http://localhost:8080/api/especialistas";
-        fetch(url)
-            .then((res) => res.json())
-            .then((s) => {
-                setData(s.map(function (elemento) {
-                return {
-                    value: elemento.legajo,
-                    label: elemento.apellido + ', ' + elemento.nombre
-                };
-                }))
-            })*/
-        }
-
-    useEffect(() => {
-        fetchInfoLegajo();
-    }, [legajo]);
-
     return (
-        <ContextGlobal.Provider value={{getRequestOptions,guardarTurno, setLegajo, changeFecha, data, setData, legajo, fechaSeleccionada, codTurno, logOut}}>
+        <ContextGlobal.Provider value={{getRequestOptions,guardarTurno, setLegajo, changeFecha, data, setData, legajo, fechaSeleccionada, codTurno, logOut, enviado}}>
             {children}
         </ContextGlobal.Provider>
     );
