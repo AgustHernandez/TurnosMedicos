@@ -5,6 +5,7 @@ import Calendario from './Calendario';
 import { Button, Select } from 'antd';
 import SelectorHorarios from './selectorHorarios';
 import { CheckOutlined } from '@ant-design/icons';
+import { useGlobalContext } from './utils/global.context';
 
 const style = {
     background: '#0092ff',
@@ -22,15 +23,14 @@ function BusquedaEspecialista() {
 
     const url = "http://localhost:8080/api/especialistas";
     const [data, setData] = useState([]);
-    const [legajo, setLegajo] = useState("74157");
-    const [fechaSeleccionada, setFechaSeleccionada] = useState("2024-01-29T21:43:45.0Z");
+    const {legajo, fechaSeleccionada, setLegajo} = useGlobalContext()
 
     const handleFechaChange = nuevaFecha => {
       setFechaSeleccionada(nuevaFecha);
-    };
+    }
 
     const onChange = (value) => {
-        setLegajo(value)
+      setLegajo(value)
     };
 
 
@@ -54,6 +54,7 @@ function BusquedaEspecialista() {
       fetchInfo();
   }, [legajo]);
 
+
   return (
     <Container maxWidth="lg" sx={{ marginTop: 0 }}>
       <Container>
@@ -70,7 +71,7 @@ function BusquedaEspecialista() {
       { legajo != "" &&
         <Grid container columns={{ xs: 4, sm: 4, md: 4, lg: 10 }} sx={{marginTop: 10, marginBottom: 10, justifyContent:"center", gap: 5}}>
           <Grid container item xs={4} justifyContent="center">
-            <Calendario onFechaChange={handleFechaChange} />
+            <Calendario onFechaChange={handleFechaChange}/>
           </Grid>
           <Grid item xs={4} justifyContent="center" alignItems="center">
           <SelectorHorarios fechaSeleccionada={fechaSeleccionada} legajo={legajo} />
