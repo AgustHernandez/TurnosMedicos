@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Button, Checkbox, Form, Input, Typography } from 'antd';
 import { useNavigate } from "react-router-dom";
 import { Content } from 'antd/es/layout/layout';
 import axios from 'axios';
@@ -12,24 +12,24 @@ function LogIn () {
     const [password, setPassword] = useState("");
     const handleUsernameInputChange = (e) => {
         setUsername(e.target.value);
-      };
+    };
 
-      const handlePasswordInputChange = (e) => {
+    const handlePasswordInputChange = (e) => {
         setPassword(e.target.value);
-      };
+    };
 
- const handleSubmit = async (e) => {
-    try {
-       let credentials = {"username": username, "password":password};
-      const response = await axios.post('http://localhost:8080/api/auth/login', {"username": username, "password":password});
+    const handleSubmit = async (e) => {
+        try {
+            let credentials = {"username": username, "password":password};
+            const response = await axios.post('http://localhost:8080/api/auth/login', {"username": username, "password":password});
 
-      localStorage.setItem('jwtToken', response.data.token);
-      navigate("/")
-    } catch (error) {
-      console.error('Error de autenticación:', error.message);
-      // Manejar errores de autenticación según tus necesidades
-    }
-  };
+            localStorage.setItem('jwtToken', response.data.token);
+            navigate("/")
+        } catch (error) {
+            console.error('Error de autenticación:', error.message);
+            // Manejar errores de autenticación según tus necesidades
+        }
+    };
 
     const onFinish = (values) => {
         console.log('Received values of form: ', values);
@@ -81,8 +81,8 @@ function LogIn () {
                     </a>
                 </Form.Item>
                 <Form.Item>
-                <Button type="primary" htmlType="submit" className="login-form-button"> 
-                    Log in
+                    <Button type="primary" htmlType="submit" className="login-form-button" > 
+                        <Typography>Iniciar Sesión </Typography>
                     </Button>
                     <a href="/registro">Registrarme</a>
                 </Form.Item>

@@ -8,26 +8,10 @@ export const useGlobalContext = () => useContext(ContextGlobal)
 function ContextProvider({ children }) {  
     const [isLoggedIn, setisLoggedIn] = useState(false);
 
-    const [codTurno, setCodTurno] = useState("")
+    const [data, setData] = useState([]);
 
-    const guardarTurno = (codTurno) => {
-        fetch(`http://localhost:8080/api/turnos/${codTurno}`, getRequestOptions('POST'))
-        .then((res) => {
-          if (res.ok) {
-            return res.json();
-          } else {
-            if (res.status === 401 || res.status === 403) {
-              navigate("/login");
-            } else {
-              throw new Error('Error en la solicitud: ' + res.statusText);
-            }
-          }
-        })
-        .then((s) => console.log(s))
-        .catch((error) => {
-          console.error('Error en la solicitud:', error);
-        });
-    }
+    const [legajo, setLegajo] = useState("");
+    const [fechaSeleccionada, setFechaSeleccionada] = useState("");
 
     const fetchInfo = () => {
         console.log(`Obteniendo turnos para ${legajo}`)
@@ -51,6 +35,34 @@ function ContextProvider({ children }) {
     }
     };
 
+    const changeFecha = (fecha) => setFechaSeleccionada(fecha);
+
+    useEffect(() => {
+        fetchInfo();
+    }, [legajo, fechaSeleccionada]);
+
+    const [codTurno, setCodTurno] = useState("")
+
+    const guardarTurno = (codTurno) => {
+      fetch(`http://localhost:8080/api/turnos/${codTurno}`, getRequestOptions('POST'))
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          if (res.status === 401 || res.status === 403) {
+            navigate("/login");
+          } else {
+            throw new Error('Error en la solicitud: ' + res.statusText);
+          }
+        }
+      })
+      .then((s) => console.log(s))
+      .catch((error) => {
+        console.error('Error en la solicitud:', error);
+      });
+      fetchInfo()
+  }
+
     const getRequestOptions = (method) =>{
         const token = localStorage.getItem('jwtToken') || "";
         var myHeaders = new Headers();
@@ -67,19 +79,9 @@ function ContextProvider({ children }) {
         return requestOptions;
       }
 
-    const changeFecha = (fecha) => setFechaSeleccionada(fecha);
-
-    const [data, setData] = useState([]);
-
-    const [legajo, setLegajo] = useState("");
-    const [fechaSeleccionada, setFechaSeleccionada] = useState("");
-
-    useEffect(() => {
-        fetchInfo();
-    }, [legajo, fechaSeleccionada]);
-
-
-   
+    const logOut = () => {
+        localStorage.setItem('jwtToken', '')
+    }
 
     const fetchInfoLegajo = () => {
         /*const url = "http://localhost:8080/api/especialistas";
@@ -100,7 +102,7 @@ function ContextProvider({ children }) {
     }, [legajo]);
 
     return (
-        <ContextGlobal.Provider value={{getRequestOptions,guardarTurno, setLegajo, changeFecha, data,setData, legajo, fechaSeleccionada, codTurno}}>
+        <ContextGlobal.Provider value={{getRequestOptions,guardarTurno, setLegajo, changeFecha, data, setData, legajo, fechaSeleccionada, codTurno, logOut}}>
             {children}
         </ContextGlobal.Provider>
     );
