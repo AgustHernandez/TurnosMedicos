@@ -28,7 +28,7 @@ function ContextProvider({ children }) {
             }
           }
         })
-        .then((s) => setData(s))
+        .then((s) => {setData(s)})
         .catch((error) => {
           console.error('Error en la solicitud:', error);
         });

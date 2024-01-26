@@ -18,9 +18,10 @@ const SelectorHorarios = () => {
     {
       title: 'Action',
       key: 'action',
-      render: (text, record) => (
+      dataIndex:'key',
+      render: (text) => (
           <Space>
-            <a onClick={() => guardarTurno(record.key)} >Elegir</a>
+            <a onClick={() => guardarTurno(text)} >Elegir</a>
           </Space>
         ),
       responsive: ['sm'],
