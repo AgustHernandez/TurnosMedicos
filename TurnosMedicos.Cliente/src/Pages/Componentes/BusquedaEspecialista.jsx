@@ -3,7 +3,7 @@ import '../../App.css';
 import { Container, Grid } from '@mui/material';
 import Calendario from './Calendario';
 import { Button, Select } from 'antd';
-import SelectorHorarios from './selectorHorarios';
+import SelectorHorarios from './SelectorHorarios';
 import { CheckOutlined } from '@ant-design/icons';
 import { useGlobalContext } from './utils/global.context';
 import { useNavigate } from "react-router-dom";
