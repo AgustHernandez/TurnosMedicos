@@ -1,11 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input } from 'antd';
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import { Content } from 'antd/es/layout/layout';
-
+import axios from 'axios';
 
 
 function LogIn () {
+    const navigate = useNavigate();
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const handleUsernameInputChange = (e) => {
+        setUsername(e.target.value);
+      };
+
+      const handlePasswordInputChange = (e) => {
+        setPassword(e.target.value);
+      };
+
+ const handleSubmit = async (e) => {
+    try {
+       let credentials = {"username": username, "password":password};
+      const response = await axios.post('http://localhost:8080/api/auth/login', {"username": username, "password":password});
+
+      localStorage.setItem('jwtToken', response.data.token);
+      navigate("/")
+    } catch (error) {
+      console.error('Error de autenticación:', error.message);
+      // Manejar errores de autenticación según tus necesidades
+    }
+  };
+
     const onFinish = (values) => {
         console.log('Received values of form: ', values);
     };
@@ -18,7 +43,7 @@ function LogIn () {
             initialValues={{
                 remember: true,
             }}
-            onFinish={onFinish}
+            onFinish={handleSubmit}
             >
                 <Form.Item
                     name="username"
@@ -29,7 +54,7 @@ function LogIn () {
                         },
                     ]}
                     >
-                    <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+                    <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" onChange={handleUsernameInputChange} />
                 </Form.Item>
                 <Form.Item
                     name="password"
@@ -44,6 +69,7 @@ function LogIn () {
                     prefix={<LockOutlined className="site-form-item-icon" />}
                     type="password"
                     placeholder="Password"
+                    onChange={handlePasswordInputChange}
                     />
                 </Form.Item>
                 <Form.Item>
@@ -55,7 +81,7 @@ function LogIn () {
                     </a>
                 </Form.Item>
                 <Form.Item>
-                    <Button type="primary" htmlType="submit" className="login-form-button">
+                <Button type="primary" htmlType="submit" className="login-form-button"> 
                     Log in
                     </Button>
                     <a href="/registro">Registrarme</a>

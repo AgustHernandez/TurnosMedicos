@@ -19,7 +19,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@CrossOrigin
 @RestController
 @RequestMapping("/api")
 public class EspecialistaController {
@@ -31,7 +30,6 @@ public class EspecialistaController {
         this.EspecialistaService = especialistaService;
     }
 
-    @CrossOrigin
     @GetMapping("/especialistas")
     public ResponseEntity<List<EspecialistaDTO>> listarEspecialistas() {
         logger.info("GET /especialistas");
@@ -39,14 +37,12 @@ public class EspecialistaController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @CrossOrigin
     @PostMapping("/especialistas")
     public ResponseEntity<EspecialistaDTO> agregarEspecialista(@RequestBody EspecialistaQuery especialista) throws ElementAlreadyExistsException {
         logger.info("POST /especialistas");
         EspecialistaDTO result = EspecialistaService.agregarEspecialista(especialista);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
-    @CrossOrigin
     @GetMapping("/especialistas/{matricula}/turnos")
     public ResponseEntity<List<TurnoDTO>> obtenerTurnosPorMatriculaYFecha(
             @PathVariable String matricula,
@@ -56,7 +52,6 @@ public class EspecialistaController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @CrossOrigin
     @PostMapping("/turnos/{codTurno}")
     public ResponseEntity<Boolean> guardarTurnoPorCodigo(
             @PathVariable String codTurno) throws DuplicatedElementException, ResourceNotFoundException {

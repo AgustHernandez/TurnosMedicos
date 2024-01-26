@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin
 @RestController
 @RequestMapping("/api")
 public class EspecialidadController {
@@ -29,7 +28,6 @@ public class EspecialidadController {
         this.EspecialidadService = especialidadServ;
     }
 
-    @CrossOrigin
     @Operation(summary = "Obtiener especialidades", description = "Retorna una lista con todas las especialidades cargadas en la BD")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Consulta exitosa"),
@@ -41,8 +39,7 @@ public class EspecialidadController {
         List<EspecialidadDTO> result = EspecialidadService.listarEspecialidades();
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
-
-    @CrossOrigin
+    
     @Operation(summary = "Agregar especialidad", description = "Agrega una nueva especialidad en la BD")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Consulta exitosa"),

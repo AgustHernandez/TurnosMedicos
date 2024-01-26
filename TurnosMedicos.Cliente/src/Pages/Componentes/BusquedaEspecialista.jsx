@@ -6,6 +6,7 @@ import { Button, Select } from 'antd';
 import SelectorHorarios from './selectorHorarios';
 import { CheckOutlined } from '@ant-design/icons';
 import { useGlobalContext } from './utils/global.context';
+import { useNavigate } from "react-router-dom";
 
 const style = {
     background: '#0092ff',
@@ -20,10 +21,10 @@ const filterOption = (input, option) =>
     (option.nombre + option.apellido).toLowerCase().includes(input.toLowerCase());
 
 function BusquedaEspecialista() {
-
+    const navigate = useNavigate();
     const url = "http://localhost:8080/api/especialistas";
     const [data, setData] = useState([]);
-    const {legajo, fechaSeleccionada, setLegajo} = useGlobalContext()
+    const {legajo, fechaSeleccionada, setLegajo,getRequestOptions} = useGlobalContext()
 
     const handleFechaChange = nuevaFecha => {
       setFechaSeleccionada(nuevaFecha);
@@ -37,18 +38,34 @@ function BusquedaEspecialista() {
     const filterOption = (input, option) =>
         (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
 
-    const fetchInfo = () => {
-        fetch(url)
-          .then((res) => res.json())
-          .then((s) => {
-            setData(s.map(function (elemento) {
-              return {
-                value: elemento.legajo,
-                label: elemento.apellido + ', ' + elemento.nombre
-              };
-            }))
-          })
-      }
+        const fetchInfo = () => {
+          fetch(url, getRequestOptions('GET'))
+            .then((res) => {
+              if (res.ok) {
+                return res.json();
+              } else {
+                if (res.status === 401 || res.status === 403) {
+                  navigate("/login");
+                } else {
+                  throw new Error('Error en la solicitud: ' + res.statusText);
+                }
+              }
+            })
+            .then((data) => {
+              // Aquí procesa los datos después de verificar el estado
+              setData(data.map(function (elemento) {
+                return {
+                  value: elemento.legajo,
+                  label: elemento.apellido + ', ' + elemento.nombre
+                };
+              }));
+            })
+            .catch((error) => {
+              console.error('Error en la solicitud:', error);
+            });
+        };
+        
+        
 
   useEffect(() => {
       fetchInfo();
