@@ -13,10 +13,10 @@ const setFechaInStorage = (fecha) =>
     localStorage.setItem("fecha", JSON.stringify(fecha));*/
 
 function ContextProvider({ children }) {  
-    const [isLoggedIn, setisLoggedIn] = useState(false);
+    const [isLoggedIn, setisLoggedIn,] = useState(false);
 
     const guardarTurno = (codTurno) => {
-        fetch(`http://localhost:8080/api/turnos/${codTurno}`, getRequestOptions('POST'))
+        fetch(`http://localhost:8080/api/especialistas/${legajo}/turnos/${codTurno}`, getRequestOptions('POST'))
         .then((res) => {
           if (res.ok) {
             return res.json();
