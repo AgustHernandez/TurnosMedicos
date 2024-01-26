@@ -3,7 +3,7 @@ import '../../App.css'
 import { Typography, Container, Card, CardActionArea, CardMedia, CardContent } from '@mui/material';
 import DiagxImagen from '../../assets/estudiosImagenes.png'
 import Consultorio from '../../assets/consultorio.png'
-import Laboratorio from '../../assets/Laboratorio.png'
+import Laboratorio from '../../assets/laboratorio.png'
 import Calendario from '../../assets/calendario.png'
 import Grid from '@mui/material/Unstable_Grid2';
 
