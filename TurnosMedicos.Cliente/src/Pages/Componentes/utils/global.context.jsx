@@ -9,10 +9,12 @@ export const useGlobalContext = () => useContext(ContextGlobal)
 function ContextProvider({ children }) {  
     const [isLoggedIn, setisLoggedIn,] = useState(false);
 
+
     const [data, setData] = useState([]);
 
     const [legajo, setLegajo] = useState("");
     const [fechaSeleccionada, setFechaSeleccionada] = useState("");
+    const [loading, setLoading] = useState(false)
 
     const fetchInfo = () => {
         console.log(`Obteniendo turnos para ${legajo}`);
@@ -30,7 +32,9 @@ function ContextProvider({ children }) {
             }
           }
         })
-        .then((s) => {setData(s)})
+        .then((s) => {
+          setData(s)
+        })
         .catch((error) => {
           console.error('Error en la solicitud:', error);
         });
@@ -50,6 +54,7 @@ function ContextProvider({ children }) {
     const [confirmacionTurno, setConfirmacionTurno] = useState({})
 
     const guardarTurno = (codTurno) => {
+      setLoading(true)
       fetch(`http://localhost:8080/api/especialistas/${legajo}/turnos/${codTurno}`, getRequestOptions('POST'))
       .then((res) => {
         if (res.ok) {
@@ -65,6 +70,7 @@ function ContextProvider({ children }) {
       .then((s) => {
         setEnviado(s.fecha != undefined);
         setConfirmacionTurno(s);
+        setLoading(false)
       })
       .catch((error) => {
         console.error('Error en la solicitud:', error);
@@ -93,7 +99,7 @@ function ContextProvider({ children }) {
     }
 
     return (
-        <ContextGlobal.Provider value={{getRequestOptions,guardarTurno, setLegajo, changeFecha, data, setData, legajo, fechaSeleccionada, codTurno, logOut, enviado,confirmacionTurno}}>
+        <ContextGlobal.Provider value={{getRequestOptions,guardarTurno, setLegajo, changeFecha, data, setData, legajo, fechaSeleccionada, codTurno, logOut, enviado,confirmacionTurno, loading}}>
             {children}
         </ContextGlobal.Provider>
     );

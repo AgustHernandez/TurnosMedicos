@@ -25,8 +25,8 @@ function ComponenteMain() {
                     fontWeight: 500,
                     letterSpacing: '.3rem',
                     textAlign: 'center'}}> 
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, reprehenderit rerum. Maxime ipsa in veritatis voluptatibus ea totam tempora pariatur debitis velit laborum iste deserunt exercitationem dolores dolore, eligendi inventore.
-                    Aliquam autem dolorem perferendis alias repellendus maiores, perspiciatis odit dolorum a voluptates, impedit expedita repudiandae, exercitationem qui soluta rerum. At veritatis corporis temporibus suscipit atque tempore itaque corrupti praesentium nesciunt!
+                    Somos un centro de diagnóstico por imágenes con consultorios médicos de diferentes especialidades.
+                    Contamos con tecnología de avanzada en estudios de imágenes preventivos para el diagnóstico temprano que permiten una mayor efectividad en futuros tratamientos, mejorando la calidad de vida.
                 </Typography>
             </Container>
             <Grid container columns={{ xs: 4, sm: 4, md: 4, lg: 10 }} sx={{marginTop: 10, marginBottom: 10, justifyContent:"center", gap: 5}}>

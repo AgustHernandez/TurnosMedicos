@@ -12,7 +12,7 @@ function Calendario({ onFechaChange }) {
   const {changeFecha} = useGlobalContext()
   const { token } = theme.useToken();
   const wrapperStyle = {
-    width: 381,
+    width: 1000,
     border: `1px solid ${token.colorBorderSecondary}`,
     borderRadius: token.borderRadiusLG,
   };

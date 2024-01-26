@@ -57,7 +57,7 @@ function NavBar() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            MEDICINA
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -95,9 +95,6 @@ function NavBar() {
                 <MenuItem onClick={handleCloseNavMenu}>
                   <Button href="/reservar">RESERVAR</Button>
                 </MenuItem>
-                <MenuItem onClick={handleCloseNavMenu}>
-                  <Button href="/perfil">MIS TURNOS</Button>
-                </MenuItem>
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -117,7 +114,7 @@ function NavBar() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            MEDICINA
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               <Button
