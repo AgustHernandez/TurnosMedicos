@@ -67,12 +67,6 @@ function ContextProvider({ children }) {
         return requestOptions;
       }
 
-    /*const [fechaSeleccionada, setFechaSeleccionada] = useState(getFechaFromStorage());
-
-    useEffect(() => {
-        guardarTurno();
-    }, [codTurno]);
-
     const changeFecha = (fecha) => setFechaSeleccionada(fecha);
 
     const [data, setData] = useState([]);
@@ -85,9 +79,10 @@ function ContextProvider({ children }) {
     }, [legajo, fechaSeleccionada]);
 
 
-    const url = "http://localhost:8080/api/especialistas";
+   
 
     const fetchInfoLegajo = () => {
+        /*const url = "http://localhost:8080/api/especialistas";
         fetch(url)
             .then((res) => res.json())
             .then((s) => {
@@ -97,7 +92,7 @@ function ContextProvider({ children }) {
                     label: elemento.apellido + ', ' + elemento.nombre
                 };
                 }))
-            })
+            })*/
         }
 
     useEffect(() => {
@@ -105,7 +100,7 @@ function ContextProvider({ children }) {
     }, [legajo]);
 
     return (
-        <ContextGlobal.Provider value={{getRequestOptions,guardarTurno, setLegajo, changeFecha, data, legajo, fechaSeleccionada, codTurno}}>
+        <ContextGlobal.Provider value={{getRequestOptions,guardarTurno, setLegajo, changeFecha, data,setData, legajo, fechaSeleccionada, codTurno}}>
             {children}
         </ContextGlobal.Provider>
     );

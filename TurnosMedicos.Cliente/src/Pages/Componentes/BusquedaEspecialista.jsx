@@ -22,7 +22,7 @@ const filterOption = (input, option) =>
 
 function BusquedaEspecialista() {
     const navigate = useNavigate();
-    const {legajo, fechaSeleccionada, setLegajo, data, guardarTurno,getRequestOptions} = useGlobalContext()
+    const {legajo, fechaSeleccionada, setLegajo, data,setData, guardarTurno,getRequestOptions} = useGlobalContext()
 
     const onChange = (value) => {
       setLegajo(value)
@@ -33,6 +33,7 @@ function BusquedaEspecialista() {
         (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
 
         const fetchInfo = () => {
+          const url = "http://localhost:8080/api/especialistas";
           fetch(url, getRequestOptions('GET'))
             .then((res) => {
               if (res.ok) {
