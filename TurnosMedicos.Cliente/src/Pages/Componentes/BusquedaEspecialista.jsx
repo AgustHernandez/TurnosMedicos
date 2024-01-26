@@ -21,7 +21,7 @@ const filterOption = (input, option) =>
 
 function BusquedaEspecialista() {
 
-    const {legajo, fechaSeleccionada, setLegajo, data} = useGlobalContext()
+    const {legajo, fechaSeleccionada, setLegajo, data, guardarTurno} = useGlobalContext()
 
     const onChange = (value) => {
       setLegajo(value)
@@ -57,7 +57,7 @@ function BusquedaEspecialista() {
               <Calendario/>
             </Grid>
             <Grid item xs={4} justifyContent="center" alignItems="center">
-              <SelectorHorarios fechaSeleccionada={fechaSeleccionada} legajo={legajo} />
+              <SelectorHorarios guardarTurno={guardarTurno} />
             </Grid>
             <Grid container item xs={8} justifyContent="flex-end" alignItems="center">
               <Button shape="round" icon={<CheckOutlined />} value="large">

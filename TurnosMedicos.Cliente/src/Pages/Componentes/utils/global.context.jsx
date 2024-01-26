@@ -7,11 +7,18 @@ export const useGlobalContext = () => useContext(ContextGlobal)
 
 function ContextProvider({ children }) {  
 
+    const [codTurno, setCodTurno] = useState("")
+
     const guardarTurno = (codTurno) => {
         fetch(`http://localhost:8080/api/turnos/${codTurno}`, {method:'POST'})
         .then((res) => res.json())
-        .then((s) => console.log(s));
+        .then((s) => setCodTurno(s));
+        console.log(codTurno)
     }
+
+    useEffect(() => {
+        guardarTurno();
+    }, [codTurno]);
 
     const changeFecha = (fecha) => setFechaSeleccionada(fecha);
 
@@ -52,7 +59,7 @@ function ContextProvider({ children }) {
     }, [legajo]);
 
     return (
-        <ContextGlobal.Provider value={{guardarTurno, setLegajo, changeFecha, data, legajo, fechaSeleccionada}}>
+        <ContextGlobal.Provider value={{guardarTurno, setLegajo, changeFecha, data, legajo, fechaSeleccionada, codTurno}}>
             {children}
         </ContextGlobal.Provider>
     );

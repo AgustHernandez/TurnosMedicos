@@ -3,7 +3,7 @@ import { useGlobalContext } from './utils/global.context';
 import { Space, Table } from 'antd';
 
 const SelectorHorarios = () => {
-  const {data, guardarTurno} = useGlobalContext()
+  const {data, guardarTurno, codTurno} = useGlobalContext()
 
   const columns = [
     {
@@ -20,7 +20,7 @@ const SelectorHorarios = () => {
       key: 'action',
       render: (text, record) => (
           <Space>
-            <a onClick={() => guardarTurno(record.codTurno)} >Elegir</a>
+            <a onClick={() => guardarTurno(record.key)} >Elegir</a>
           </Space>
         ),
       responsive: ['sm'],
