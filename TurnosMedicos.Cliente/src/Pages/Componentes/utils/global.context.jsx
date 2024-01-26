@@ -6,7 +6,7 @@ export const useGlobalContext = () => useContext(ContextGlobal)
 
 
 function ContextProvider({ children }) {  
-    const [isLoggedIn, setisLoggedIn] = useState(false);
+    const [isLoggedIn, setisLoggedIn,] = useState(false);
 
     const [data, setData] = useState([]);
 

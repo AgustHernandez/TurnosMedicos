@@ -1,12 +1,14 @@
 package com.example.TurnosMedicos.services;
 
 import com.example.TurnosMedicos.DTO.Especialista.EspecialistaDTO;
+import com.example.TurnosMedicos.DTO.Turno.InfoTurnoDTO;
 import com.example.TurnosMedicos.DTO.Turno.TurnoDTO;
 import com.example.TurnosMedicos.datos.EspecialistaDAO;
 import com.example.TurnosMedicos.datos.interfaces.IDao;
 import com.example.TurnosMedicos.exceptions.DuplicatedElementException;
 import com.example.TurnosMedicos.exceptions.ElementAlreadyExistsException;
 import com.example.TurnosMedicos.exceptions.ResourceNotFoundException;
+import com.example.TurnosMedicos.model.AppUser;
 import com.example.TurnosMedicos.model.Especialista;
 import com.example.TurnosMedicos.model.EspecialistaQuery;
 import com.example.TurnosMedicos.model.Turno;
@@ -30,6 +32,7 @@ import java.util.stream.Collectors;
 public class EspecialistaService implements IEspecialistaServ {
 
     private ObjectMapper mapper;
+    private EmailService EmailSender;
     private static final org.apache.log4j.Logger logger = Logger.getLogger(EspecialistaService.class);
 
     IDao<Especialista> EspecialistaDao;
@@ -37,9 +40,10 @@ public class EspecialistaService implements IEspecialistaServ {
     IUserRepository UserRepository;
 
     @Autowired
-    public EspecialistaService(IDao<Especialista> especialistaDao,IDao<Turno> turnoDao, IUserRepository userRepository)
+    public EspecialistaService(IDao<Especialista> especialistaDao,IDao<Turno> turnoDao, IUserRepository userRepository, EmailService emailSender)
     {
         EspecialistaDao = especialistaDao;
+        this.EmailSender = emailSender;
         UserRepository = userRepository;
         this.TurnoDao = turnoDao;
         this.mapper = new ObjectMapper();
@@ -91,15 +95,35 @@ public class EspecialistaService implements IEspecialistaServ {
     }
 
     @Override
-    public Boolean guardarTurnoPorCodigo(String CodigoTurno) throws ResourceNotFoundException, DuplicatedElementException {
+    public Boolean guardarTurnoPorCodigo(String CodigoTurno,String matricula, String username) throws ResourceNotFoundException, DuplicatedElementException {
         Turno turno = TurnoDao.buscar(Long.parseLong(CodigoTurno));
         if(turno != null)
         {
-            turno.setAppUser(UserRepository.getById(Long.parseLong("1")));
-            TurnoDao.modificar(turno, false);
-            return true;
+            Optional<Especialista> especialistaEncontrado = EspecialistaDao.listar().stream()
+                    .filter(especialista -> matricula.equals(especialista.getLegajo()))
+                    .findFirst();
+            if (especialistaEncontrado.isPresent()) {
+                Especialista especialista = especialistaEncontrado.get();
+                AppUser user = UserRepository.findByEmail(username).get();
+                turno.setAppUser(user);
+                TurnoDao.modificar(turno, false);
+                EmailSender.sendEmail(user.getEmail(),especialista.getEspecialidad().getNombre() + " - Turno guardardo","Se ha registrado satisfactoriamente un turno para el especialista "+ especialista.getApellido() + " " + especialista.getNombre() + " el dia " + turno.getFecha());
+                return true;
+            }
         }
         return false;
+    }
+
+    @Override
+    public InfoTurnoDTO obtenerTurnoPorCodigo(String matricula, String CodigoTurno) throws ResourceNotFoundException, DuplicatedElementException {
+        Turno turno = TurnoDao.buscar(Long.parseLong(CodigoTurno));
+        Especialista especialista = EspecialistaDao.listar().stream().filter(especialista1 -> especialista1.getLegajo().equals(matricula)).findFirst().get();
+        InfoTurnoDTO result = new InfoTurnoDTO();
+        result.username = turno.getAppUser().getEmail();
+        result.fecha = turno.getFecha();
+        result.especialista = especialista.getApellido() + ", " + especialista.getNombre();
+        result.especialidad = especialista.getEspecialidad().getNombre();
+        return result;
     }
 
 

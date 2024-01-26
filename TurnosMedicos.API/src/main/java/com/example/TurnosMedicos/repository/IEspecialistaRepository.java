@@ -10,5 +10,5 @@ import java.util.Optional;
 @Repository
 public interface IEspecialistaRepository extends JpaRepository<Especialista, Long> {
     Optional<Especialista> findByApellido(String apellido);
-    Optional<Especialista> findByLegajo(String findByLegajo);
+    Optional<Especialista> findByLegajo(String legajo);
 }

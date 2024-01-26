@@ -1,6 +1,7 @@
 package com.example.TurnosMedicos.services.interfaces;
 
 import com.example.TurnosMedicos.DTO.Especialista.EspecialistaDTO;
+import com.example.TurnosMedicos.DTO.Turno.InfoTurnoDTO;
 import com.example.TurnosMedicos.DTO.Turno.TurnoDTO;
 import com.example.TurnosMedicos.exceptions.DuplicatedElementException;
 import com.example.TurnosMedicos.exceptions.ElementAlreadyExistsException;
@@ -17,5 +18,6 @@ public interface IEspecialistaServ {
     EspecialistaDTO agregarEspecialista(EspecialistaQuery especialista) throws ElementAlreadyExistsException;
     List<TurnoDTO> obtenerTurnosPorMatriculaYFecha(String matricula, LocalDate fecha);
 
-    Boolean guardarTurnoPorCodigo(String CodigoTurno) throws ResourceNotFoundException, DuplicatedElementException;
+    Boolean guardarTurnoPorCodigo(String CodigoTurno,String matricula, String username) throws ResourceNotFoundException, DuplicatedElementException;
+    InfoTurnoDTO obtenerTurnoPorCodigo(String matricula,String CodigoTurno) throws ResourceNotFoundException, DuplicatedElementException;
 }
