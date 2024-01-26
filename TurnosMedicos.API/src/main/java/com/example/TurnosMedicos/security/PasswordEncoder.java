@@ -1,4 +1,4 @@
-package com.example.TurnosMedicos.configuration;
+package com.example.TurnosMedicos.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

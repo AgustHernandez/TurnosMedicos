@@ -24,7 +24,7 @@ function App() {
           <Routes>
             <Route path='/' element={<LandingPage/>}/>
             <Route path='/reservar' element={<Turnos/>}/>
-            <Route path='/inicioSesion' element={<LogIn/>}/>
+            <Route path='/login' element={<LogIn/>}/>
             <Route path='/registro' element={<RegistroUsuario/>}/>
           </Routes>
         </Content>

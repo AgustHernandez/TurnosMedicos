@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {AutoComplete, Button, Cascader, Checkbox, Col, Form, Input, InputNumber, Row, Select,} from 'antd';
 import { Content } from 'antd/es/layout/layout';
 import { Typography } from 'antd';
+import axios from 'axios';
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -61,9 +62,19 @@ const tailFormItemLayout = {
 
 function RegistroUsuario () {
     const [form] = Form.useForm();
-    const onFinish = (values) => {
-        console.log('Received values of form: ', values);
-    };
+    const onFinish = async (values) => {
+        try {
+          const response = await axios.post('http://localhost:8080/api/auth/register', values);
+    
+          if (response.status === 201) {
+            console.log('Usuario registrado exitosamente:', response.data);
+          } else {
+            console.error('Error al registrar usuario:', response.data);
+          }
+        } catch (error) {
+          console.error('Error al registrar usuario:', error);
+        }
+      };
     const prefixSelector = (
         <Form.Item name="prefix" noStyle>
             <Select
@@ -148,7 +159,7 @@ function RegistroUsuario () {
                 </Form.Item>
 
                 <Form.Item
-                    name="nombreUsuario"
+                    name="username"
                     label="Usuario"
                     tooltip="Nombre de usuario"
                     rules={[
