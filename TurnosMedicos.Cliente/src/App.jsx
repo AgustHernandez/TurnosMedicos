@@ -17,7 +17,7 @@ function App() {
     <>
     <BrowserRouter>
       <Layout>
-        <Header style={{ display: 'flex', alignItems: 'center' }}>
+        <Header style={{ display: 'flex'}}>
           <NavBar/>
         </Header>
         <Content style={{ padding: '0 48px' }}>

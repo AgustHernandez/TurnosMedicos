@@ -7,20 +7,19 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useState } from 'react';
+import { useGlobalContext } from '../Pages/Componentes/utils/global.context';
+import { LoginOutlined, LogoutOutlined } from '@ant-design/icons';
 
-
-const settings = ['Mi perfil', 'Mis Turnos', 'Cerrar Sesión'];
 
 function NavBar() {
+  const {logOut} = useGlobalContext()
+
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const [logIn, setLogIn] = useState(false)
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -36,6 +35,7 @@ function NavBar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
 
   return (
     <AppBar>
@@ -90,10 +90,13 @@ function NavBar() {
               }}
             >
                 <MenuItem onClick={handleCloseNavMenu}>
-                  <Typography href="/" textAlign="center">INICIO</Typography>
+                  <Button href="/">INICIO</Button>
                 </MenuItem>
                 <MenuItem onClick={handleCloseNavMenu}>
-                  <Typography href="/reservar" textAlign="center">RESERVAR</Typography>
+                  <Button href="/reservar">RESERVAR</Button>
+                </MenuItem>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Button href="/perfil">MIS TURNOS</Button>
                 </MenuItem>
             </Menu>
           </Box>
@@ -133,40 +136,19 @@ function NavBar() {
               </Button>
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+          {localStorage.getItem('jwtToken') == "" ?
+            <Box sx={{ flexGrow: 0 }}>
+              <IconButton href="/login" sx={{ p: 0 }}>
+                <LoginOutlined style={{color: 'white',}} />
               </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {logIn == false ?
-                <MenuItem onClick={handleCloseUserMenu}>
-                  <Button textAlign="center" href="/inicioSesion">Iniciar Sesión</Button>
-                </MenuItem>
+            </Box>
               :
-                settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+            <Box sx={{ flexGrow: 0 }}>
+              <IconButton onClick={logOut} sx={{ p: 0 }}>
+                  <LogoutOutlined style={{color: 'white',}} />
+                </IconButton>
+            </Box>
+            }
         </Toolbar>
       </Container>
     </AppBar>

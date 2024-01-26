@@ -3,7 +3,7 @@ import { useGlobalContext } from './utils/global.context';
 import { Space, Table } from 'antd';
 
 const SelectorHorarios = () => {
-  const {data, guardarTurno} = useGlobalContext()
+  const {data, guardarTurno, codTurno} = useGlobalContext()
 
   const columns = [
     {
@@ -11,17 +11,22 @@ const SelectorHorarios = () => {
       dataIndex: 'horario',
       key: 'horario',
       render: (text) => <a>{text}</a>,
-      responsive: ['lg'],
+      responsive: ['sm'],
+      align: "center",
+      columnWidth: 10,
     },
     {
       title: 'Action',
       key: 'action',
-      render: (text, record) => (
-          <Space size="middle">
-            <a onClick={() => guardarTurno(record.codTurno)}>Elegir</a>
+      dataIndex:'key',
+      render: (text) => (
+          <Space>
+            <a onClick={() => guardarTurno(text)} >Elegir</a>
           </Space>
         ),
-      responsive: ['lg'],
+      responsive: ['sm'],
+      align: "center",
+      columnWidth: 10,
     },
   ];
 
@@ -30,8 +35,9 @@ const SelectorHorarios = () => {
     <Table
       columns={columns}
       dataSource={data}
-      size="small"
+      size='small'
       bordered
+      hideOnSinglePage={true}
     />
   );
 }

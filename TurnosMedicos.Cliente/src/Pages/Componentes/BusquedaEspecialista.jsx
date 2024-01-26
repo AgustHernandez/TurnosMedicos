@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../../App.css';
 import { Container, Grid } from '@mui/material';
 import Calendario from './Calendario';
-import { Button, Select } from 'antd';
+import { Button, Select, Result, Flex } from 'antd';
 import SelectorHorarios from './SelectorHorarios';
 import { CheckOutlined } from '@ant-design/icons';
 import { useGlobalContext } from './utils/global.context';
@@ -22,13 +22,7 @@ const filterOption = (input, option) =>
 
 function BusquedaEspecialista() {
     const navigate = useNavigate();
-    const url = "http://localhost:8080/api/especialistas";
-    const [data, setData] = useState([]);
-    const {legajo, fechaSeleccionada, setLegajo,getRequestOptions} = useGlobalContext()
-
-    const handleFechaChange = nuevaFecha => {
-      setFechaSeleccionada(nuevaFecha);
-    }
+    const {legajo, fechaSeleccionada, setLegajo, data,setData, guardarTurno,getRequestOptions, enviado} = useGlobalContext()
 
     const onChange = (value) => {
       setLegajo(value)
@@ -39,6 +33,7 @@ function BusquedaEspecialista() {
         (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
 
         const fetchInfo = () => {
+          const url = "http://localhost:8080/api/especialistas";
           fetch(url, getRequestOptions('GET'))
             .then((res) => {
               if (res.ok) {
@@ -73,34 +68,57 @@ function BusquedaEspecialista() {
 
 
   return (
-    <Container maxWidth="lg" sx={{ marginTop: 0 }}>
-      <Container>
-        <Select
-          showSearch
-          placeholder="Seleccione un especialista"
-          optionFilterProp="children"
-          onChange={onChange}
-          style={{ width: 300, height: 50 }}
-          filterOption={filterOption}
-          options={data}
+    <Flex gap="middle" vertical align="center"
+    justify="center">
+      {enviado ?
+        <Result
+          status="success"
+          title="Turno confirmado!"
+          subTitle={`Especialista: ${legajo}`}
+          extra={[
+            <Button type="primary" key="console" href='/'>
+              Inicio
+            </Button>
+          ]}
         />
-      </Container>
-      { legajo != "" &&
-        <Grid container columns={{ xs: 4, sm: 4, md: 4, lg: 10 }} sx={{marginTop: 10, marginBottom: 10, justifyContent:"center", gap: 5}}>
-          <Grid container item xs={4} justifyContent="center">
-            <Calendario onFechaChange={handleFechaChange}/>
+      :
+        <Flex gap="middle" vertical align="center"
+        justify="center">
+          <Select
+            showSearch
+            placeholder="Seleccione un especialista"
+            optionFilterProp="children"
+            onChange={onChange}
+            style={{ width: 300, height: 50 }}
+            filterOption={filterOption}
+            options={data}
+            />
+        {legajo != "" &&
+          <Grid container columns={{ xs: 4, sm: 4, md: 4, lg: 10 }} sx={{marginTop: 10, marginBottom: 10, justifyContent:"center", gap: 5}}>
+            {fechaSeleccionada == "" ?
+              <Grid container item xs={4} justifyContent="center">
+                <Calendario />
+              </Grid>
+            :
+            <Grid container columns={{ xs: 4, sm: 4, md: 4, lg: 10 }} sx={{marginTop: 10, marginBottom: 10, justifyContent:"center", gap: 5}}>
+              <Grid container item xs={4} justifyContent="center">
+                <Calendario/>
+              </Grid>
+              <Grid item xs={4} justifyContent="center" alignItems="center">
+                <SelectorHorarios guardarTurno={guardarTurno} />
+              </Grid>
+              <Grid container item xs={8} justifyContent="flex-end" alignItems="center">
+                <Button shape="round" icon={<CheckOutlined />} value="large">
+                  Confirmar
+                </Button> 
+              </Grid>
+            </Grid>  
+            }
           </Grid>
-          <Grid item xs={4} justifyContent="center" alignItems="center">
-          <SelectorHorarios fechaSeleccionada={fechaSeleccionada} legajo={legajo} />
-          </Grid>
-          <Grid container item xs={8} justifyContent="flex-end" alignItems="center">
-            <Button shape="round" icon={<CheckOutlined />} value="large">
-              Confirmar
-            </Button> 
-          </Grid>
-        </Grid>
+          }
+        </Flex>
       }
-    </Container>
+    </Flex>
   )
 }
 

@@ -22,7 +22,6 @@ function Calendario({ onFechaChange }) {
       <Calendar
         onSelect={(date, { source }) => {
           if (source === 'date') {
-            console.log(JSON.stringify(date.$d));
             changeFecha(JSON.stringify(date.$d));
           }
         }}
