@@ -11,17 +11,21 @@ const SelectorHorarios = () => {
       dataIndex: 'horario',
       key: 'horario',
       render: (text) => <a>{text}</a>,
-      responsive: ['lg'],
+      responsive: ['sm'],
+      align: "center",
+      columnWidth: 10,
     },
     {
       title: 'Action',
       key: 'action',
       render: (text, record) => (
-          <Space size="middle">
-            <a onClick={() => guardarTurno(record.codTurno)}>Elegir</a>
+          <Space>
+            <a onClick={() => guardarTurno(record.codTurno)} >Elegir</a>
           </Space>
         ),
-      responsive: ['lg'],
+      responsive: ['sm'],
+      align: "center",
+      columnWidth: 10,
     },
   ];
 
@@ -30,8 +34,9 @@ const SelectorHorarios = () => {
     <Table
       columns={columns}
       dataSource={data}
-      size="small"
+      size='small'
       bordered
+      hideOnSinglePage={true}
     />
   );
 }

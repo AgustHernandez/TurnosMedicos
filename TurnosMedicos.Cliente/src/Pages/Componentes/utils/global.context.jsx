@@ -4,13 +4,6 @@ const ContextGlobal = createContext([]);
 
 export const useGlobalContext = () => useContext(ContextGlobal)
 
-/*const getFechaFromStorage = () => {
-    const localData = localStorage.getItem("fecha");
-    return localData ? JSON.parse(localData) : [];
-    };
-
-const setFechaInStorage = (fecha) =>
-    localStorage.setItem("fecha", JSON.stringify(fecha));*/
 
 function ContextProvider({ children }) {  
 
@@ -19,12 +12,6 @@ function ContextProvider({ children }) {
         .then((res) => res.json())
         .then((s) => console.log(s));
     }
-
-    /*const [fechaSeleccionada, setFechaSeleccionada] = useState(getFechaFromStorage());
-
-    useEffect(() => {
-        setFechaInStorage(fecha);
-        }, [fecha]);*/
 
     const changeFecha = (fecha) => setFechaSeleccionada(fecha);
 
@@ -43,6 +30,26 @@ function ContextProvider({ children }) {
     useEffect(() => {
         fetchInfo();
     }, [legajo, fechaSeleccionada]);
+
+
+    const url = "http://localhost:8080/api/especialistas";
+
+    const fetchInfoLegajo = () => {
+        fetch(url)
+            .then((res) => res.json())
+            .then((s) => {
+                setData(s.map(function (elemento) {
+                return {
+                    value: elemento.legajo,
+                    label: elemento.apellido + ', ' + elemento.nombre
+                };
+                }))
+            })
+        }
+
+    useEffect(() => {
+        fetchInfoLegajo();
+    }, [legajo]);
 
     return (
         <ContextGlobal.Provider value={{guardarTurno, setLegajo, changeFecha, data, legajo, fechaSeleccionada}}>
