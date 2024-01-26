@@ -22,7 +22,7 @@ const filterOption = (input, option) =>
 
 function BusquedaEspecialista() {
     const navigate = useNavigate();
-    const {legajo, fechaSeleccionada, setLegajo, data,setData, guardarTurno,getRequestOptions, enviado} = useGlobalContext()
+    const {legajo, fechaSeleccionada, setLegajo, data,setData, guardarTurno,getRequestOptions, enviado,confirmacionTurno} = useGlobalContext()
 
     const onChange = (value) => {
       setLegajo(value)
@@ -47,7 +47,6 @@ function BusquedaEspecialista() {
               }
             })
             .then((data) => {
-              // Aquí procesa los datos después de verificar el estado
               setData(data.map(function (elemento) {
                 return {
                   value: elemento.legajo,
@@ -74,7 +73,7 @@ function BusquedaEspecialista() {
         <Result
           status="success"
           title="Turno confirmado!"
-          subTitle={`Especialista: ${legajo}`}
+          subTitle={`Especialista: ${confirmacionTurno.especialista}     |      Fecha: ${confirmacionTurno.fecha}`}
           extra={[
             <Button type="primary" key="console" href='/'>
               Inicio

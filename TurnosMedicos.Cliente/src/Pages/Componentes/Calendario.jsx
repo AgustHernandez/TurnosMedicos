@@ -20,10 +20,8 @@ function Calendario({ onFechaChange }) {
   return (
     <div style={wrapperStyle}>
       <Calendar
-        onSelect={(date, { source }) => {
-          if (source === 'date') {
+        onChange ={(date) => {
             changeFecha(JSON.stringify(date.$d));
-          }
         }}
         fullscreen={false}
         onPanelChange={(value, mode) => onPanelChange(value, mode, onFechaChange)}

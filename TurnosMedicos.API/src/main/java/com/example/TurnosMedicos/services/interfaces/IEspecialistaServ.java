@@ -18,6 +18,6 @@ public interface IEspecialistaServ {
     EspecialistaDTO agregarEspecialista(EspecialistaQuery especialista) throws ElementAlreadyExistsException;
     List<TurnoDTO> obtenerTurnosPorMatriculaYFecha(String matricula, LocalDate fecha);
 
-    Boolean guardarTurnoPorCodigo(String CodigoTurno,String matricula, String username) throws ResourceNotFoundException, DuplicatedElementException;
+    InfoTurnoDTO guardarTurnoPorCodigo(String CodigoTurno,String matricula, String username) throws ResourceNotFoundException, DuplicatedElementException;
     InfoTurnoDTO obtenerTurnoPorCodigo(String matricula,String CodigoTurno) throws ResourceNotFoundException, DuplicatedElementException;
 }

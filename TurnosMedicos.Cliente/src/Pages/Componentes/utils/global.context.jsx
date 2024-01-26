@@ -1,3 +1,4 @@
+import { CompassOutlined } from "@ant-design/icons";
 import { createContext, useContext, useState, useEffect} from "react";
 
 const ContextGlobal = createContext([]);
@@ -14,7 +15,8 @@ function ContextProvider({ children }) {
     const [fechaSeleccionada, setFechaSeleccionada] = useState("");
 
     const fetchInfo = () => {
-        console.log(`Obteniendo turnos para ${legajo}`)
+        console.log(`Obteniendo turnos para ${legajo}`);
+        console.log(fechaSeleccionada);
         if(legajo != "" && fechaSeleccionada != ""){
         fetch(`http://localhost:8080/api/especialistas/${legajo}/turnos?fecha=${fechaSeleccionada}`.replace("\"", "").replace("\"", ""), getRequestOptions('GET'))
         .then((res) => {
@@ -35,7 +37,9 @@ function ContextProvider({ children }) {
     }
     };
 
-    const changeFecha = (fecha) => setFechaSeleccionada(fecha);
+    const changeFecha = (fecha) => {
+      setFechaSeleccionada(fecha);
+    }
 
     useEffect(() => {
         fetchInfo();
@@ -43,6 +47,7 @@ function ContextProvider({ children }) {
 
     const [codTurno, setCodTurno] = useState("")
     const [enviado, setEnviado] = useState(false)
+    const [confirmacionTurno, setConfirmacionTurno] = useState({})
 
     const guardarTurno = (codTurno) => {
       fetch(`http://localhost:8080/api/especialistas/${legajo}/turnos/${codTurno}`, getRequestOptions('POST'))
@@ -57,7 +62,10 @@ function ContextProvider({ children }) {
           }
         }
       })
-      .then((s) => setEnviado(s))
+      .then((s) => {
+        setEnviado(s.fecha != undefined);
+        setConfirmacionTurno(s);
+      })
       .catch((error) => {
         console.error('Error en la solicitud:', error);
       });
@@ -85,7 +93,7 @@ function ContextProvider({ children }) {
     }
 
     return (
-        <ContextGlobal.Provider value={{getRequestOptions,guardarTurno, setLegajo, changeFecha, data, setData, legajo, fechaSeleccionada, codTurno, logOut, enviado}}>
+        <ContextGlobal.Provider value={{getRequestOptions,guardarTurno, setLegajo, changeFecha, data, setData, legajo, fechaSeleccionada, codTurno, logOut, enviado,confirmacionTurno}}>
             {children}
         </ContextGlobal.Provider>
     );

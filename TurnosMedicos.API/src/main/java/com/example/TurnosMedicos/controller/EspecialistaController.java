@@ -67,13 +67,13 @@ public class EspecialistaController {
     }
 
     @PostMapping("/especialistas/{matricula}/turnos/{codTurno}")
-    public ResponseEntity<Boolean> guardarTurnoPorCodigo(
+    public ResponseEntity<InfoTurnoDTO> guardarTurnoPorCodigo(
             @PathVariable String matricula,
             @PathVariable String codTurno,
             @RequestHeader(HttpHeaders.AUTHORIZATION) String authorization) throws DuplicatedElementException, ResourceNotFoundException {
         logger.info("POST /turnos/{}");
         String username = JwtService.extractUsername(authorization.substring(7));
-        Boolean result = EspecialistaService.guardarTurnoPorCodigo(codTurno,matricula,username);
+        InfoTurnoDTO result = EspecialistaService.guardarTurnoPorCodigo(codTurno,matricula,username);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

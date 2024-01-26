@@ -95,8 +95,9 @@ public class EspecialistaService implements IEspecialistaServ {
     }
 
     @Override
-    public Boolean guardarTurnoPorCodigo(String CodigoTurno,String matricula, String username) throws ResourceNotFoundException, DuplicatedElementException {
+    public InfoTurnoDTO guardarTurnoPorCodigo(String CodigoTurno,String matricula, String username) throws ResourceNotFoundException, DuplicatedElementException {
         Turno turno = TurnoDao.buscar(Long.parseLong(CodigoTurno));
+        InfoTurnoDTO result = new InfoTurnoDTO();
         if(turno != null)
         {
             Optional<Especialista> especialistaEncontrado = EspecialistaDao.listar().stream()
@@ -108,10 +109,14 @@ public class EspecialistaService implements IEspecialistaServ {
                 turno.setAppUser(user);
                 TurnoDao.modificar(turno, false);
                 EmailSender.sendEmail(user.getEmail(),especialista.getEspecialidad().getNombre() + " - Turno guardardo","Se ha registrado satisfactoriamente un turno para el especialista "+ especialista.getApellido() + " " + especialista.getNombre() + " el dia " + turno.getFecha());
-                return true;
+                result.username = turno.getAppUser().getEmail();
+                result.fecha = turno.getFecha();
+                result.especialista = especialista.getApellido() + ", " + especialista.getNombre();
+                result.especialidad = especialista.getEspecialidad().getNombre();
+                return result;
             }
         }
-        return false;
+        return null;
     }
 
     @Override
