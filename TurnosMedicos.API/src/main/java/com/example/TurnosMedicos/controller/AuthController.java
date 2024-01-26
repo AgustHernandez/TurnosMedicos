@@ -34,7 +34,6 @@ public class AuthController {
         this.jwtTokenService = jwtTokenService;
     }
 
-    @CrossOrigin
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
         // Autenticar al usuario
@@ -49,7 +48,6 @@ public class AuthController {
         return ResponseEntity.ok(new JwtResponse(token));
     }
 
-    @CrossOrigin
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody AppUserQuery userRequest) {
         try {
