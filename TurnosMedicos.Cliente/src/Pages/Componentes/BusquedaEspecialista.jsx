@@ -23,8 +23,7 @@ function BusquedaEspecialista() {
 
     const url = "http://localhost:8080/api/especialistas";
     const [data, setData] = useState([]);
-    const [legajo, setLegajo] = useState("74157");
-    const [fechaSeleccionada, setFechaSeleccionada] = useState("2024-01-29T21:43:45.0Z");
+    const {legajo, fechaSeleccionada, setLegajo} = useGlobalContext()
 
     const handleFechaChange = nuevaFecha => {
       setFechaSeleccionada(nuevaFecha);

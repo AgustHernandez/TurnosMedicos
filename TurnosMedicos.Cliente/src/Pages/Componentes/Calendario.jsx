@@ -9,7 +9,7 @@ const onPanelChange = (value, mode, onFechaChange) => {
 };
 
 function Calendario({ onFechaChange }) {
-
+  const {changeFecha} = useGlobalContext()
   const { token } = theme.useToken();
   const wrapperStyle = {
     width: 381,
@@ -22,8 +22,8 @@ function Calendario({ onFechaChange }) {
       <Calendar
         onSelect={(date, { source }) => {
           if (source === 'date') {
-            localStorage.setItem("fechaSeleccionada", JSON.stringify(date.$d))
-            console.log(localStorage.getItem("fechaSeleccionada"));
+            console.log(JSON.stringify(date.$d));
+            changeFecha(JSON.stringify(date.$d));
           }
         }}
         fullscreen={false}

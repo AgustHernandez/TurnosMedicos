@@ -24,25 +24,28 @@ function ContextProvider({ children }) {
 
     useEffect(() => {
         setFechaInStorage(fecha);
-        }, [fecha]);
+        }, [fecha]);*/
 
-    const changeFecha = (fecha) => setFechaSeleccionada(fecha);*/
+    const changeFecha = (fecha) => setFechaSeleccionada(fecha);
 
     const [data, setData] = useState([]);
 
     const fetchInfo = () => {
         console.log(`Obteniendo turnos para ${legajo}`)
-        fetch(`http://localhost:8080/api/especialistas/${legajo}/turnos?fecha=${fechaSeleccionada}`)
+        fetch(`http://localhost:8080/api/especialistas/${legajo}/turnos?fecha=${fechaSeleccionada}`.replace("\"", "").replace("\"", ""))
         .then((res) => res.json())
         .then((s) => setData(s));
     };
+
+    const [legajo, setLegajo] = useState("");
+    const [fechaSeleccionada, setFechaSeleccionada] = useState("");
 
     useEffect(() => {
         fetchInfo();
     }, [legajo, fechaSeleccionada]);
 
     return (
-        <ContextGlobal.Provider value={{guardarTurno, data, legajo, fechaSeleccionada}}>
+        <ContextGlobal.Provider value={{guardarTurno, setLegajo, changeFecha, data, legajo, fechaSeleccionada}}>
             {children}
         </ContextGlobal.Provider>
     );
