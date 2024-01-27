@@ -26,5 +26,7 @@ docker compose up --build
 ```
 
 ## Usuario para pruebas
-usuario para acceder: 
-contraseña: 
+usuario para acceder: user@digital.com
+contraseña: sa
+
+Se recomienda registrarse con un correo real personal para que la web envie la confirmacion a ese correo.
