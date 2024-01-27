@@ -28,7 +28,6 @@ function RegistroUsuario () {
             
             <Title level={2}>Creación usuario</Title>
             <Form
-            {...formItemLayout}
             form={form}
             name="register"
             onFinish={onFinish}
