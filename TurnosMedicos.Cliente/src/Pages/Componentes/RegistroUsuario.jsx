@@ -99,13 +99,12 @@ function RegistroUsuario () {
                         value ? Promise.resolve() : Promise.reject(new Error('Should accept agreement')),
                     },
                     ]}
-                    {...tailFormItemLayout}
                 >
                     <Checkbox>
                     He leido los términos y condiciones
                     </Checkbox>
                 </Form.Item>
-                <Form.Item {...tailFormItemLayout}>
+                <Form.Item>
                     <Button type="primary" htmlType="submit">
                     Registrarme
                     </Button>
