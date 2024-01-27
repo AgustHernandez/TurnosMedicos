@@ -24,3 +24,7 @@ Lanzar el servidor local
 ```
 docker compose up --build
 ```
+
+## Usuario para pruebas
+usuario para acceder: 
+contraseña: 
